@@ -1,5 +1,5 @@
 ﻿//
-//  Card.cs
+//  Lesson.cs
 //
 //  Author:
 //       Benito Palacios Sánchez (aka pleonex) <benito356@gmail.com>
@@ -23,23 +23,23 @@ using System.Collections.Generic;
 
 namespace Deblocus.Entities
 {
-    public class Card
+    public class Lesson
     {
-        public Card()
+        public Lesson()
         {
-            Images = new List<Image>();
+            Cards = new List<Card>();
         }
 
         public virtual int Id { get; protected set; }
         public virtual string Title { get; set; }
-        public virtual string Description { get; set; }
-        public virtual IList<Image> Images { get; protected set; }
-        public virtual DateTime CreationDate { get; set; }
-        public virtual int Points { get; set; }
-        public virtual int TargetPoints { get; set; }
-        public virtual int Group { get; set; }
-        public virtual DateTime GroupChangeDate { get; set; }
-        public virtual Lesson Lesson { get; set; }
+        public virtual IList<Card> Cards { get; protected set; }
+        public virtual Subject Subject { get; set; }
+
+        public virtual void AddCard(Card card)
+        {
+            card.Lesson = this;
+            this.Cards.Add(card);
+        }
     }
 }
 

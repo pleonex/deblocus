@@ -39,6 +39,8 @@
     <Compile Include="Entities\Card.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Entities\Image.cs" />
+    <Compile Include="Entities\Lesson.cs" />
+    <Compile Include="Entities\Subject.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Iesi.Collections">

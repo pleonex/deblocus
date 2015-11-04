@@ -1,5 +1,5 @@
 ﻿//
-//  Test.cs
+//  Image.cs
 //
 //  Author:
 //       Benito Palacios Sánchez (aka pleonex) <benito356@gmail.com>
@@ -18,18 +18,21 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using NUnit.Framework;
 using System;
 
-namespace Deblocus.UnitTests
+namespace Deblocus.Entities
 {
-    [TestFixture()]
-    public class Test
+    public class Image
     {
-        [Test()]
-        public void TestCase()
+        public Image()
         {
+            Data = new byte[0];
         }
+
+        public virtual int Id { get; protected set; }
+        public virtual byte[] Data { get; protected set; }
+        public virtual string Name { get; set; }
+        public virtual string Description { get; set; }
     }
 }
 

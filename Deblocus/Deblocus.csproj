@@ -41,6 +41,7 @@
     <Compile Include="Entities\Image.cs" />
     <Compile Include="Entities\Lesson.cs" />
     <Compile Include="Entities\Subject.cs" />
+    <Compile Include="Mappings\CardMap.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Iesi.Collections">

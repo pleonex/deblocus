@@ -1,5 +1,5 @@
 ﻿//
-//  CardTests.cs
+//  CardMap.cs
 //
 //  Author:
 //       Benito Palacios Sánchez (aka pleonex) <benito356@gmail.com>
@@ -19,29 +19,27 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using NUnit.Framework;
+using FluentNHibernate.Mapping;
 using Deblocus.Entities;
-using System.Collections.Generic;
 
-namespace Deblocus.UnitTests.Entities
+namespace Deblocus.Mappings
 {
-    [TestFixture]
-    public class CardTests
+    public class CardMap : ClassMap<Card>
     {
-        [Test]
-        public void PropertiesExists()
+        public CardMap()
         {
-            //byte[] img1 = new byte[] { 0x10, 0x20 };
-
-            Card card = new Card {
-                Title = "My Card",
-                Description = "Description",
-            };
-            //card.Images.Add(img1);
-
-            Assert.AreEqual("My Card", card.Title);
-            Assert.AreEqual("Description", card.Description);
-            //Assert.AreEqual(img1, card.Images[0]);
+            Id(x => x.Id);
+            Map(x => x.Title);
+            Map(x => x.Description);
+            HasMany(x => x.Images)
+                .Inverse()
+                .Cascade.All();
+            Map(x => x.CreationDate);
+            Map(x => x.Points);
+            Map(x => x.TargetPoints);
+            Map(x => x.Group);
+            Map(x => x.GroupChangeDate);
+            References(x => x.Lesson);
         }
     }
 }

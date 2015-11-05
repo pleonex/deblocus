@@ -26,7 +26,6 @@ namespace Deblocus.Entities
     {
         public Image()
         {
-            Data = new byte[0];
         }
 
         public virtual int Id { get; protected set; }

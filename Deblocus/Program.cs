@@ -103,19 +103,8 @@ namespace Deblocus
             return Fluently.Configure()
                 .Database(MonoSQLiteConfiguration.Standard.UsingFile("database.db"))
                 .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Program>())
-                .ExposeConfiguration(BuildSchema)
+                .ExposeConfiguration(cfg => new SchemaUpdate(cfg).Execute(false, true))
                 .BuildSessionFactory();
-        }
-
-        private static void BuildSchema(Configuration config)
-        {
-            // Delete the existing DB on each run
-            if (File.Exists("database.db"))
-                File.Delete("database.db");
-
-            // This NHibernate tool takes a configuration (with mapping info in)
-            // and exports a database schema from it.
-            new SchemaExport(config).Create(false, true);
         }
 
         private static void PrintSubject(Subject subject)

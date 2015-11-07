@@ -37,7 +37,7 @@ namespace Deblocus.Entities
         public virtual DateTime CreationDate { get; set; }
         public virtual int Points { get; set; }
         public virtual int TargetPoints { get; set; }
-        public virtual int Group { get; set; }
+        public virtual int GroupId { get; set; }
         public virtual DateTime GroupChangeDate { get; set; }
         public virtual Lesson Lesson { get; set; }
     }

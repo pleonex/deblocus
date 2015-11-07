@@ -52,7 +52,7 @@ namespace Deblocus
                         Description = "The definition of a\nvector is blahblah.",
                         CreationDate = DateTime.Now,
                         GroupChangeDate = DateTime.Now,
-                        Group = 0,
+                        GroupId = 0,
                         Points = 0,
                         TargetPoints = 5
                     };
@@ -61,7 +61,7 @@ namespace Deblocus
                         Description = "The dot product is computed by...",
                         CreationDate = DateTime.Now,
                         GroupChangeDate = DateTime.Now,
-                        Group = 0,
+                        GroupId = 0,
                         Points = 0,
                         TargetPoints = 5
                     };
@@ -74,7 +74,7 @@ namespace Deblocus
                         Description = "The sum of matrix is equals to...",
                         CreationDate = DateTime.Now,
                         GroupChangeDate = DateTime.Now,
-                        Group = 0,
+                        GroupId = 0,
                         Points = 0,
                         TargetPoints = 5
                     };
@@ -137,7 +137,7 @@ namespace Deblocus
                         card.Title);
                     Console.WriteLine("\t\t\tCreationDate: {0}", card.CreationDate);
                     Console.WriteLine("\t\t\tGroupChangeDate: {0}", card.GroupChangeDate);
-                    Console.WriteLine("\t\t\tGroup: {0}", card.Group);
+                    Console.WriteLine("\t\t\tGroup: {0}", card.GroupId);
                     Console.WriteLine("\t\t\tPoints: {0}", card.Points);
                     Console.WriteLine("\t\t\tTargetPoints: {0}", card.TargetPoints);
                     Console.WriteLine("\t\t\t{0}", card.Description);

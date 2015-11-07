@@ -44,6 +44,8 @@
     <Compile Include="Mappings\LessonMap.cs" />
     <Compile Include="Mappings\ImageMap.cs" />
     <Compile Include="Mappings\SubjectMap.cs" />
+    <Compile Include="MonoSQLiteDriver.cs" />
+    <Compile Include="MonoSQLiteConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FluentNHibernate">

@@ -63,5 +63,6 @@
     <Compile Include="DatabaseTests.cs" />
     <Compile Include="Entities\ImageTests.cs" />
     <Compile Include="Entities\LessonTests.cs" />
+    <Compile Include="Entities\SubjectTests.cs" />
   </ItemGroup>
 </Project>

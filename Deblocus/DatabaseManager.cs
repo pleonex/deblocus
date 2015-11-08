@@ -66,7 +66,7 @@ namespace Deblocus
         {
             return Fluently.Configure()
                 .Database(MonoSQLiteConfiguration.Standard.UsingFile(DatabasePath))
-                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Program>())
+                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<DatabaseManager>())
                 .ExposeConfiguration(cfg => new SchemaUpdate(cfg).Execute(false, true))
                 .BuildSessionFactory();
         }

@@ -47,7 +47,7 @@ namespace Deblocus.UnitTests
         {
             sessionFactory = Fluently.Configure()
                 .Database(MonoSQLiteConfiguration.Standard.InMemory())
-                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Program>())
+                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<DatabaseManager>())
                 .ExposeConfiguration(cfg => sessionConfiguration = cfg)
                 .BuildSessionFactory();
         }

@@ -19,6 +19,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 using NHibernate;
 using NHibernate.Cfg;
@@ -27,6 +28,7 @@ using FluentNHibernate.Cfg;
 
 namespace Deblocus.UnitTests
 {
+    // From: http://www.tigraine.at/2009/05/29/fluent-nhibernate-gotchas-when-testing-with-an-in-memory-database/
     public abstract class DatabaseTests
     {
         private ISessionFactory sessionFactory;
@@ -79,6 +81,21 @@ namespace Deblocus.UnitTests
         public void TearDownFixture()
         {
             sessionFactory.Dispose();
+        }
+
+        protected void SaveOrUpdate(params object[] objs)
+        {
+            using (var transaction = this.Session.BeginTransaction()) {
+                foreach (object obj in objs)
+                    this.Session.SaveOrUpdate(obj);
+                transaction.Commit();
+            }
+        }
+
+        protected IList<T> Retrieve<T>()
+            where T : class
+        {
+            return this.Session.CreateCriteria<T>().List<T>();
         }
     }
 }

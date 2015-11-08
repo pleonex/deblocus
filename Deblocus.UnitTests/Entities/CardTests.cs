@@ -79,13 +79,10 @@ namespace Deblocus.UnitTests.Entities
                 GroupChangeDate = groupChangeTime
             };
 
-            using (var transaction = this.Session.BeginTransaction()) {
-                this.Session.SaveOrUpdate(card);
-                transaction.Commit();
-            }
+            SaveOrUpdate(card);
 
             using (this.Session.BeginTransaction()) {
-                var dbCard = this.Session.CreateCriteria<Card>().List<Card>();
+                var dbCard = Retrieve<Card>();
                 Assert.AreEqual(1, dbCard.Count);
                 Assert.AreEqual(card.Title, dbCard[0].Title);
                 Assert.AreEqual(card.Description, dbCard[0].Description);
@@ -94,6 +91,22 @@ namespace Deblocus.UnitTests.Entities
                 Assert.AreEqual(card.TargetPoints, dbCard[0].TargetPoints);
                 Assert.AreEqual(card.GroupId, dbCard[0].GroupId);
                 Assert.AreEqual(card.GroupChangeDate, dbCard[0].GroupChangeDate);
+            }
+        }
+
+        [Test]
+        public void CheckCascadeWithImages()
+        {
+            Image image = new Image { Name = "The Image" };
+            Card card = new Card { Title = "Test Image in DB" };
+            card.Images.Add(image);
+
+            SaveOrUpdate(card);
+
+            using (this.Session.BeginTransaction()) {
+                var dbCards = Retrieve<Card>();
+                Assert.AreEqual(1, dbCards[0].Images.Count);
+                Assert.AreEqual("The Image", dbCards[0].Images[0].Name);
             }
         }
     }

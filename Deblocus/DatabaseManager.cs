@@ -19,10 +19,10 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
+using System.Collections.Generic;
 using FluentNHibernate.Cfg;
 using NHibernate;
 using NHibernate.Tool.hbm2ddl;
-using System.Collections.Generic;
 
 namespace Deblocus
 {
@@ -85,27 +85,33 @@ namespace Deblocus
             }
         }
 
-        public ITransaction BeginTransaction()
+        public void MakeTransaction(Action<ISession> expression)
         {
-            return session.BeginTransaction();
+            using (var transaction = BeginTransaction()) {
+                expression(session);
+                transaction.Commit();
+            }
         }
 
         public void SaveOrUpdate(params object[] objects)
         {
-            using (var transaction = BeginTransaction()) {
+            MakeTransaction(aSession => {
                 foreach (var obj in objects)
-                    session.SaveOrUpdate(obj);
-                transaction.Commit();
-            }
+                    aSession.SaveOrUpdate(obj);
+            });
         }
 
         public IList<T> Retrieve<T>()
             where T : class
         {
-            IList<T> list;
-            using (BeginTransaction())
-                list = session.CreateCriteria<T>().List<T>();
+            IList<T> list = null;
+            MakeTransaction(aSession => list = aSession.CreateCriteria<T>().List<T>());
             return list;
+        }
+
+        private ITransaction BeginTransaction()
+        {
+            return session.BeginTransaction();
         }
     }
 }

@@ -43,6 +43,8 @@ namespace Deblocus.UnitTests.Entities
             Assert.AreEqual(3, card.TargetPoints);
             Assert.AreEqual(0, card.GroupId);
             Assert.IsInstanceOf<DateTime>(card.GroupChangeDate);
+            Assert.AreEqual(0, card.Images.Count);
+            Assert.IsNull(card.Lesson);
         }
 
         [Test]
@@ -53,6 +55,7 @@ namespace Deblocus.UnitTests.Entities
             Card card = new Card();
             card.Images.Add(image);
 
+            Assert.AreEqual(1, card.Images.Count);
             Assert.AreSame(image, card.Images[0]);
         }
 
@@ -125,7 +128,7 @@ namespace Deblocus.UnitTests.Entities
             using (this.Session.BeginTransaction()) {
                 var dbCards = Retrieve<Card>();
                 Assert.AreEqual(1, dbCards[0].Images.Count);
-                Assert.AreEqual("The Image", dbCards[0].Images[0].Name);
+                Assert.AreEqual(image.Name, dbCards[0].Images[0].Name);
             }
         }
 

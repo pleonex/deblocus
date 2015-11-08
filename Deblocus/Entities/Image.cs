@@ -29,7 +29,7 @@ namespace Deblocus.Entities
         }
 
         public virtual int Id { get; protected set; }
-        public virtual byte[] Data { get; protected set; }
+        public virtual byte[] Data { get; set; }
         public virtual string Name { get; set; }
         public virtual string Description { get; set; }
     }

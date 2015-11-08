@@ -28,7 +28,7 @@ namespace Deblocus.UnitTests.Entities
     public class CardTests : DatabaseTests
     {
         [Test]
-        public void PropertiesExists()
+        public void PropertiesExist()
         {
             DateTime creationTime = DateTime.Now;
             DateTime groupChangeTime = DateTime.Now;

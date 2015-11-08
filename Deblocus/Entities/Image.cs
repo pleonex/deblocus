@@ -32,7 +32,7 @@ namespace Deblocus.Entities
         }
 
         public static string DefaultName {
-            get { return "No Title"; }
+            get { return "No Name"; }
         }
 
         public virtual int Id { get; protected set; }

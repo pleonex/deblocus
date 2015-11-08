@@ -30,67 +30,46 @@ namespace Deblocus
     {
         public static void Main()
         {
-            var sessionFactory = CreateSessionFactory();
+            // Let's create a subject
+            Subject mathSubject = new Subject { Title = "Maths" };
 
-            using (var session = sessionFactory.OpenSession()) {
-                using (var transaction = session.BeginTransaction()) {
-                    // Let's create a subject
-                    Subject mathSubject = new Subject { Title = "Maths" };
+            // Now let's add some lessons
+            Lesson vector2DLesson = new Lesson { Title = "2D Vectors" };
+            Lesson matrixLesson = new Lesson { Title = "Matrix" };
+            mathSubject.AddLesson(vector2DLesson);
+            mathSubject.AddLesson(matrixLesson);
 
-                    // Now let's add some lessons
-                    Lesson vector2DLesson = new Lesson { Title = "2D Vectors" };
-                    Lesson matrixLesson = new Lesson { Title = "Matrix" };
-                    mathSubject.AddLesson(vector2DLesson);
-                    mathSubject.AddLesson(matrixLesson);
+            // Now some cards to the vector lesson
+            Card vectorDefinition = new Card {
+                Title = "Vector Definition",
+                Description = "The definition of a\nvector is blahblah.",
+                TargetPoints = 5
+            };
+            Card dotProduct = new Card {
+                Title = "Dot Product",
+                Description = "The dot product is computed by...",
+                TargetPoints = 5
+            };
+            vector2DLesson.AddCard(vectorDefinition);
+            vector2DLesson.AddCard(dotProduct);
 
-                    // Now some cards to the vector lesson
-                    Card vectorDefinition = new Card {
-                        Title = "Vector Definition",
-                        Description = "The definition of a\nvector is blahblah.",
-                        TargetPoints = 5
-                    };
-                    Card dotProduct = new Card {
-                        Title = "Dot Product",
-                        Description = "The dot product is computed by...",
-                        TargetPoints = 5
-                    };
-                    vector2DLesson.AddCard(vectorDefinition);
-                    vector2DLesson.AddCard(dotProduct);
+            // And another for the matrix lesson
+            Card matrixSum = new Card {
+                Title = "Matrix Sum",
+                Description = "The sum of matrix is equals to...",
+                TargetPoints = 5
+            };
+            matrixLesson.AddCard(matrixSum);
 
-                    // And another for the matrix lesson
-                    Card matrixSum = new Card {
-                        Title = "Matrix Sum",
-                        Description = "The sum of matrix is equals to...",
-                        TargetPoints = 5
-                    };
-                    matrixLesson.AddCard(matrixSum);
+            // Save the subject - It will cascade the elements
+            DatabaseManager.Instance.SaveOrUpdate(mathSubject);
 
-                    // Save the subject - It will cascade the elements
-                    session.SaveOrUpdate(mathSubject);
+            // Retrieve all the subjects and print the elements
+            var subjects = DatabaseManager.Instance.Retrieve<Subject>();
+            foreach (var subject in subjects)
+                PrintSubject(subject);
 
-                    // Commit the operation
-                    transaction.Commit();
-                }
-
-                // Retrieve all the subjects and print the elements
-                using (session.BeginTransaction()) {
-                    var subjects = session.CreateCriteria<Subject>().List<Subject>();
-                    foreach (var subject in subjects) {
-                        PrintSubject(subject);
-                    }
-                }
-
-                Console.WriteLine("Closing session...");
-            }
-        }
-
-        private static ISessionFactory CreateSessionFactory()
-        {
-            return Fluently.Configure()
-                .Database(MonoSQLiteConfiguration.Standard.UsingFile("database.db"))
-                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Program>())
-                .ExposeConfiguration(cfg => new SchemaUpdate(cfg).Execute(false, true))
-                .BuildSessionFactory();
+            Console.WriteLine("Done!");
         }
 
         private static void PrintSubject(Subject subject)

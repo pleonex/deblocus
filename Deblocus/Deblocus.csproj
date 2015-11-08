@@ -46,6 +46,7 @@
     <Compile Include="Mappings\SubjectMap.cs" />
     <Compile Include="MonoSQLiteDriver.cs" />
     <Compile Include="MonoSQLiteConfiguration.cs" />
+    <Compile Include="DatabaseManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FluentNHibernate">

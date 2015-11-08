@@ -25,13 +25,23 @@ namespace Deblocus.Entities
 {
     public class Lesson
     {
+        private string title;
+
         public Lesson()
         {
+            Title = DefaultTitle;
             Cards = new List<Card>();
         }
 
+        public static string DefaultTitle {
+            get { return "No Title"; }
+        }
+
         public virtual int Id { get; protected set; }
-        public virtual string Title { get; set; }
+        public virtual string Title {
+            get { return title; }
+            set { title = string.IsNullOrEmpty(value) ? DefaultTitle : value; }
+        }
         public virtual IList<Card> Cards { get; protected set; }
         public virtual Subject Subject { get; set; }
 

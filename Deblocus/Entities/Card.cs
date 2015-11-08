@@ -57,6 +57,16 @@ namespace Deblocus.Entities
         public virtual int GroupId { get; protected set; }
         public virtual DateTime GroupChangeDate { get; protected set; }
         public virtual Lesson Lesson { get; set; }
+
+        public virtual void GivePoint()
+        {
+            Points++;
+            if (Points >= TargetPoints) {
+                Points = 0;
+                GroupId++;
+                GroupChangeDate = DateTime.Now;
+            }
+        }
     }
 }
 

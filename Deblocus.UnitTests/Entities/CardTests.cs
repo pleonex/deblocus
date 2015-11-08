@@ -94,6 +94,27 @@ namespace Deblocus.UnitTests.Entities
         }
 
         [Test]
+        public void GivePoint()
+        {
+            Card card = new Card { TargetPoints = 2 };
+            DateTime initialDate = card.GroupChangeDate;
+
+            Assert.AreEqual(0, card.Points);
+            Assert.AreEqual(0, card.GroupId);
+            Assert.AreEqual(initialDate, card.GroupChangeDate);
+
+            card.GivePoint();
+            Assert.AreEqual(1, card.Points);
+            Assert.AreEqual(0, card.GroupId);
+            Assert.AreEqual(initialDate, card.GroupChangeDate);
+
+            card.GivePoint();
+            Assert.AreEqual(0, card.Points);
+            Assert.AreEqual(1, card.GroupId);
+            Assert.Greater(card.GroupChangeDate, initialDate);
+        }
+
+        [Test]
         public void CreateCardInDB()
         {
             Card card = new Card {

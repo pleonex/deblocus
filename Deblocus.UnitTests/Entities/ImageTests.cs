@@ -46,9 +46,27 @@ namespace Deblocus.UnitTests.Entities
         public void DefaultValues()
         {
             Image image = new Image();
-            Assert.IsNull(image.Name);
+            Assert.AreEqual(Image.DefaultName, image.Name);
             Assert.IsNull(image.Description);
             Assert.IsNull(image.Data);
+        }
+
+        [Test]
+        public void TryToSetNullName()
+        {
+            Image image = new Image();
+            image.Name = null;
+            Assert.IsNotNull(image.Name);
+            Assert.AreEqual(Image.DefaultName, image.Name);
+        }
+
+        [Test]
+        public void TryToSetEmptyName()
+        {
+            Image image = new Image();
+            image.Name = string.Empty;
+            Assert.IsNotNullOrEmpty(image.Name);
+            Assert.AreEqual(Image.DefaultName, image.Name);
         }
 
         [Test]
@@ -80,7 +98,7 @@ namespace Deblocus.UnitTests.Entities
 
             using (this.Session.BeginTransaction()) {
                 var dbImages = Retrieve<Image>();
-                Assert.IsNull(dbImages[0].Name);
+                Assert.AreEqual(Image.DefaultName, dbImages[0].Name);
                 Assert.IsNull(dbImages[0].Description);
                 Assert.IsNull(dbImages[0].Data);
             }

@@ -24,13 +24,23 @@ namespace Deblocus.Entities
 {
     public class Image
     {
+        private string name;
+
         public Image()
         {
+            Name = DefaultName;
+        }
+
+        public static string DefaultName {
+            get { return "No Title"; }
         }
 
         public virtual int Id { get; protected set; }
         public virtual byte[] Data { get; set; }
-        public virtual string Name { get; set; }
+        public virtual string Name {
+            get { return name; }
+            set { name = string.IsNullOrEmpty(value) ? DefaultName : value; }
+        }
         public virtual string Description { get; set; }
     }
 }

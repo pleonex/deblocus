@@ -19,18 +19,16 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using NHibernate;
-using Deblocus.Entities;
 using FluentNHibernate.Cfg;
-using NHibernate.Cfg;
-using System.IO;
+using NHibernate;
 using NHibernate.Tool.hbm2ddl;
+using Deblocus.Entities;
 
 namespace Deblocus
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static void Main()
         {
             var sessionFactory = CreateSessionFactory();
 

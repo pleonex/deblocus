@@ -47,19 +47,11 @@ namespace Deblocus
                     Card vectorDefinition = new Card {
                         Title = "Vector Definition",
                         Description = "The definition of a\nvector is blahblah.",
-                        CreationDate = DateTime.Now,
-                        GroupChangeDate = DateTime.Now,
-                        GroupId = 0,
-                        Points = 0,
                         TargetPoints = 5
                     };
                     Card dotProduct = new Card {
                         Title = "Dot Product",
                         Description = "The dot product is computed by...",
-                        CreationDate = DateTime.Now,
-                        GroupChangeDate = DateTime.Now,
-                        GroupId = 0,
-                        Points = 0,
                         TargetPoints = 5
                     };
                     vector2DLesson.AddCard(vectorDefinition);
@@ -69,10 +61,6 @@ namespace Deblocus
                     Card matrixSum = new Card {
                         Title = "Matrix Sum",
                         Description = "The sum of matrix is equals to...",
-                        CreationDate = DateTime.Now,
-                        GroupChangeDate = DateTime.Now,
-                        GroupId = 0,
-                        Points = 0,
                         TargetPoints = 5
                     };
                     matrixLesson.AddCard(matrixSum);

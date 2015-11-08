@@ -30,26 +30,19 @@ namespace Deblocus.UnitTests.Entities
         [Test]
         public void PropertiesExist()
         {
-            DateTime creationTime = DateTime.Now;
-            DateTime groupChangeTime = DateTime.Now;
-
             Card card = new Card {
                 Title = "My Card",
                 Description = "Description",
-                CreationDate = creationTime,
-                Points = 2,
-                TargetPoints = 3,
-                GroupId = 1,
-                GroupChangeDate = groupChangeTime
+                TargetPoints = 3
             };
 
             Assert.AreEqual("My Card", card.Title);
             Assert.AreEqual("Description", card.Description);
-            Assert.AreEqual(creationTime, card.CreationDate);
-            Assert.AreEqual(2, card.Points);
+            Assert.IsInstanceOf<DateTime>(card.CreationDate);
+            Assert.AreEqual(0, card.Points);
             Assert.AreEqual(3, card.TargetPoints);
-            Assert.AreEqual(1, card.GroupId);
-            Assert.AreEqual(groupChangeTime, card.GroupChangeDate);
+            Assert.AreEqual(0, card.GroupId);
+            Assert.IsInstanceOf<DateTime>(card.GroupChangeDate);
         }
 
         [Test]
@@ -64,19 +57,45 @@ namespace Deblocus.UnitTests.Entities
         }
 
         [Test]
+        public void DefaultValues()
+        {
+            Card card = new Card();
+            Assert.AreEqual(Card.DefaultTitle, card.Title);
+            Assert.IsNull(card.Description);
+            Assert.IsNotNull(card.Images);
+            Assert.AreEqual(0, card.Images.Count);
+            Assert.AreNotEqual(new DateTime(), card.CreationDate);
+            Assert.AreEqual(0, card.Points);
+            Assert.AreEqual(Card.DefaultTargetPoints, card.TargetPoints);
+            Assert.AreEqual(0, card.GroupId);
+            Assert.AreEqual(card.CreationDate, card.GroupChangeDate);
+            Assert.IsNull(card.Lesson);
+        }
+
+        [Test]
+        public void TryToSetNullTitle()
+        {
+            Card card = new Card();
+            card.Title = null;
+            Assert.IsNotNull(card.Title);
+            Assert.AreEqual(Card.DefaultTitle, card.Title);
+        }
+
+        [Test]
+        public void TryToSetEmptyTitle()
+        {
+            Card card = new Card();
+            card.Title = string.Empty;
+            Assert.IsNotNullOrEmpty(card.Title);
+            Assert.AreEqual(Card.DefaultTitle, card.Title);
+        }
+
+        [Test]
         public void CreateCardInDB()
         {
-            DateTime creationTime = DateTime.Now;
-            DateTime groupChangeTime = DateTime.Now;
-
             Card card = new Card {
                 Title = "My Card",
                 Description = "Description",
-                CreationDate = creationTime,
-                Points = 2,
-                TargetPoints = 3,
-                GroupId = 1,
-                GroupChangeDate = groupChangeTime
             };
 
             SaveOrUpdate(card);
@@ -107,6 +126,27 @@ namespace Deblocus.UnitTests.Entities
                 var dbCards = Retrieve<Card>();
                 Assert.AreEqual(1, dbCards[0].Images.Count);
                 Assert.AreEqual("The Image", dbCards[0].Images[0].Name);
+            }
+        }
+
+        [Test]
+        public void DefaultValuesFromDB()
+        {
+            Card card = new Card();
+            SaveOrUpdate(card);
+
+            using (this.Session.BeginTransaction()) {
+                var dbCards = Retrieve<Card>();
+                Assert.AreEqual(Card.DefaultTitle, dbCards[0].Title);
+                Assert.IsNull(dbCards[0].Description);
+                Assert.IsNotNull(dbCards[0].Images);
+                Assert.AreEqual(0, dbCards[0].Images.Count);
+                Assert.AreNotEqual(new DateTime(), dbCards[0].CreationDate);
+                Assert.AreEqual(0, dbCards[0].Points);
+                Assert.AreEqual(Card.DefaultTargetPoints, dbCards[0].TargetPoints);
+                Assert.AreEqual(0, dbCards[0].GroupId);
+                Assert.AreEqual(dbCards[0].CreationDate, dbCards[0].GroupChangeDate);
+                Assert.IsNull(dbCards[0].Lesson);
             }
         }
     }

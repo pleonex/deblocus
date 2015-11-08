@@ -25,20 +25,37 @@ namespace Deblocus.Entities
 {
     public class Card
     {
+        private string title;
+
         public Card()
         {
+            Title = DefaultTitle;
+            CreationDate = DateTime.Now;
+            GroupChangeDate = CreationDate;
             Images = new List<Image>();
+            TargetPoints = DefaultTargetPoints;
+        }
+
+        public static string DefaultTitle {
+            get { return "No Title"; }
+        }
+
+        public static int DefaultTargetPoints {
+            get { return 5; }
         }
 
         public virtual int Id { get; protected set; }
-        public virtual string Title { get; set; }
+        public virtual string Title {
+            get { return title; }
+            set { title = string.IsNullOrEmpty(value) ? DefaultTitle : value; }
+        }
         public virtual string Description { get; set; }
         public virtual IList<Image> Images { get; protected set; }
-        public virtual DateTime CreationDate { get; set; }
-        public virtual int Points { get; set; }
+        public virtual DateTime CreationDate { get; protected set; }
+        public virtual int Points { get; protected set; }
         public virtual int TargetPoints { get; set; }
-        public virtual int GroupId { get; set; }
-        public virtual DateTime GroupChangeDate { get; set; }
+        public virtual int GroupId { get; protected set; }
+        public virtual DateTime GroupChangeDate { get; protected set; }
         public virtual Lesson Lesson { get; set; }
     }
 }

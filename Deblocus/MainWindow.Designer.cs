@@ -20,11 +20,25 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using Xwt;
+using System.Reflection;
 
 namespace Deblocus
 {
     public partial class MainWindow : Window
     {
+        private void CreateComponents()
+        {
+            Width  = 800;
+            Height = 600;
+
+            Version version = Assembly.GetExecutingAssembly().GetName().Version;
+            Title  = string.Format("Deblocus - v{0}.{1}.{2}",
+                version.Major, version.Minor, version.Build);
+
+            CloseRequested += HandleCloseRequested;
+        }
+
+
     }
 }
 

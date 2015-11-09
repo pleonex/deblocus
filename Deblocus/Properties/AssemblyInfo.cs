@@ -1,5 +1,5 @@
 ﻿//
-//  MainWindow.cs
+//  AssemblyInfo.cs
 //
 //  Author:
 //       Benito Palacios Sánchez (aka pleonex) <benito356@gmail.com>
@@ -18,22 +18,17 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using Xwt;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 
-namespace Deblocus
-{
-    public partial class MainWindow
-    {
-        public MainWindow()
-        {
-            CreateComponents();
-        }
-
-        void HandleCloseRequested(object sender, CloseRequestedEventArgs e)
-        {
-            Application.Exit();
-        }
-    }
-}
-
+// Information about this assembly is defined by the following attributes.
+// Change them to the values specific to your project.
+[assembly: AssemblyTitle("Deblocus")]
+[assembly: AssemblyDescription("A card manager for students.")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("")]
+[assembly: AssemblyCopyright("Copyright (c) 2015 pleonex")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
+[assembly: AssemblyVersion("0.1.0.*")]

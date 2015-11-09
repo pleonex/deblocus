@@ -1,5 +1,5 @@
 ﻿//
-//  Program.cs
+//  MainWindow.cs
 //
 //  Author:
 //       Benito Palacios Sánchez (aka pleonex) <benito356@gmail.com>
@@ -19,23 +19,13 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using Xwt;
 
 namespace Deblocus
 {
-    public static class Program
+    public partial class MainWindow
     {
-        [STAThread]
-        public static void Main()
+        public MainWindow()
         {
-            Application.Initialize(ToolkitType.Gtk);
-
-            var mainWindow = new MainWindow();
-            mainWindow.Show();
-            Application.Run();
-
-            mainWindow.Dispose();
-            Application.Dispose();
         }
     }
 }

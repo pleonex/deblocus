@@ -1,5 +1,5 @@
 ﻿//
-//  Program.cs
+//  MainWindow.Designer.cs
 //
 //  Author:
 //       Benito Palacios Sánchez (aka pleonex) <benito356@gmail.com>
@@ -23,20 +23,8 @@ using Xwt;
 
 namespace Deblocus
 {
-    public static class Program
+    public partial class MainWindow : Window
     {
-        [STAThread]
-        public static void Main()
-        {
-            Application.Initialize(ToolkitType.Gtk);
-
-            var mainWindow = new MainWindow();
-            mainWindow.Show();
-            Application.Run();
-
-            mainWindow.Dispose();
-            Application.Dispose();
-        }
     }
 }
 

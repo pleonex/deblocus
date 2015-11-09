@@ -1,0 +1,4 @@
+[submodule "xwt"]
+	path = xwt
+	url = https://github.com/pleonex/xwt
+	branch = merge_textarea

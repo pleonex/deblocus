@@ -63,6 +63,12 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="Xwt">
+      <HintPath>..\xwt\Xwt.Gtk\bin\Debug\Xwt.dll</HintPath>
+    </Reference>
+    <Reference Include="Xwt.Gtk">
+      <HintPath>..\xwt\Xwt.Gtk\bin\Debug\Xwt.Gtk.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

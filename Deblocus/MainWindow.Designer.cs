@@ -19,13 +19,22 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using Xwt;
 using System.Reflection;
+using Xwt;
+using Xwt.Drawing;
+using NHibernate.Type;
 
 namespace Deblocus
 {
     public partial class MainWindow : Window
     {
+        private static readonly Color LightBlue = Color.FromBytes(149, 167, 185);
+
+        private ComboBox comboSubject;
+        private ComboBox comboLesson;
+        private Button btnSettings;
+
+       
         private void CreateComponents()
         {
             Width  = 800;
@@ -36,9 +45,54 @@ namespace Deblocus
                 version.Major, version.Minor, version.Build);
 
             CloseRequested += HandleCloseRequested;
+
+            var menuPanelDivision = new VBox();
+            menuPanelDivision.BackgroundColor = LightBlue;
+            menuPanelDivision.PackStart(MakeMenuBar(), margin: 0);
+            menuPanelDivision.PackStart(MakePanel(), true, margin: 0);
+
+            // Set the content
+            Padding = new WidgetSpacing();
+            Content = menuPanelDivision;
         }
 
+        private Widget MakeMenuBar()
+        {
+            var menuBox = new HBox();
+            menuBox.MinHeight = 30;
+            menuBox.BackgroundColor = Colors.LightPink;
+            menuBox.Margin = new WidgetSpacing();
 
+            var lblSubject = new Label("Subject:");
+            lblSubject.MarginLeft = 10;
+            menuBox.PackStart(lblSubject);
+            
+            comboSubject = new ComboBox();
+            menuBox.PackStart(comboSubject, vpos: WidgetPlacement.Center);
+
+            var lblLesson = new Label("Lesson:");
+            lblLesson.MarginLeft = 10;
+            menuBox.PackStart(lblLesson);
+
+            comboLesson = new ComboBox();
+            menuBox.PackStart(comboLesson, vpos: WidgetPlacement.Center);
+
+            btnSettings = new Button(StockIcons.Information);
+            btnSettings.MarginRight = 10;
+            btnSettings.Style = ButtonStyle.Borderless;
+            btnSettings.VerticalPlacement = WidgetPlacement.Center;
+            menuBox.PackEnd(btnSettings);
+
+            return menuBox;
+        }
+
+        private Widget MakePanel()
+        {
+            var panelBox = new Table();
+            panelBox.BackgroundColor = LightBlue;
+
+            return panelBox;
+        }
     }
 }
 

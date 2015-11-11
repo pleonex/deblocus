@@ -1,5 +1,5 @@
 ﻿//
-//  MainWindow.cs
+//  CardsController.cs
 //
 //  Author:
 //       Benito Palacios Sánchez (aka pleonex) <benito356@gmail.com>
@@ -20,27 +20,28 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using Xwt;
-using Deblocus.Controllers;
+using Deblocus.Entities;
 
-namespace Deblocus
+namespace Deblocus.Controllers
 {
-    public partial class MainWindow
+    public class CardsController
     {
-        public MainWindow()
+        public CardsController(Window window, Table panel,
+            LessonsController lessonsController)
         {
-            CreateComponents();
+            Window = window;
+            Panel = panel;
 
-            var subjectsController = new SubjectsController(this, comboSubject);
-            var lessonsController  = new LessonsController(this, comboLesson,
-                subjectsController);
-            new CardsController(this, tableCards, lessonsController);
-
-            subjectsController.Update();
+            lessonsController.LessonChange += OnLessonChanged;
         }
 
-        private void HandleCloseRequested(object sender, CloseRequestedEventArgs e)
+        public Window Window { get; private set; }
+        public Table Panel { get; private set; }
+        public Lesson CurrentLesson { get; private set; }
+
+        private void OnLessonChanged(Lesson lesson)
         {
-            Application.Exit();
+
         }
     }
 }

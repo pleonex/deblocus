@@ -32,7 +32,7 @@ namespace Deblocus
         private ComboBox comboSubject;
         private ComboBox comboLesson;
         private Button btnSettings;
-
+        private Table tableCards;
        
         private void CreateComponents()
         {
@@ -74,7 +74,6 @@ namespace Deblocus
             menuBox.PackStart(lblLesson);
 
             comboLesson = new ComboBox();
-            comboLesson.Sensitive = false;
             comboLesson.WidthRequest = 120;
             menuBox.PackStart(comboLesson, vpos: WidgetPlacement.Center);
 
@@ -89,10 +88,10 @@ namespace Deblocus
 
         private Widget MakePanel()
         {
-            var panelBox = new Table();
-            panelBox.BackgroundColor = LightBlue;
+            tableCards = new Table();
+            tableCards.BackgroundColor = LightBlue;
 
-            return panelBox;
+            return tableCards;
         }
     }
 }

@@ -35,6 +35,7 @@
     <Folder Include="Entities\" />
     <Folder Include="Mappings\" />
     <Folder Include="Properties\" />
+    <Folder Include="Controllers\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Card.cs" />
@@ -54,6 +55,9 @@
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Controllers\CardsController.cs" />
+    <Compile Include="Controllers\SubjectsController.cs" />
+    <Compile Include="Controllers\LessonsController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FluentNHibernate">

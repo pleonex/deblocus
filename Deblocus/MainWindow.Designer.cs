@@ -22,7 +22,6 @@ using System;
 using System.Reflection;
 using Xwt;
 using Xwt.Drawing;
-using NHibernate.Type;
 
 namespace Deblocus
 {
@@ -75,6 +74,8 @@ namespace Deblocus
             menuBox.PackStart(lblLesson);
 
             comboLesson = new ComboBox();
+            comboLesson.Sensitive = false;
+            comboLesson.WidthRequest = 120;
             menuBox.PackStart(comboLesson, vpos: WidgetPlacement.Center);
 
             btnSettings = new Button(StockIcons.Information);

@@ -20,17 +20,66 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using Xwt;
+using System.Collections.Generic;
+using Deblocus.Entities;
 
 namespace Deblocus
 {
     public partial class MainWindow
     {
+        private readonly DatabaseManager database;
+        private readonly IList<Subject> subjects;
+
         public MainWindow()
         {
+            database = DatabaseManager.Instance;
+            subjects = database.Retrieve<Subject>();
+
             CreateComponents();
+            UpdateSubjects();
+
+            comboSubject.SelectionChanged += OnSelectedSubject;
         }
 
-        void HandleCloseRequested(object sender, CloseRequestedEventArgs e)
+        private void UpdateSubjects()
+        {
+            comboSubject.Items.Clear();
+            foreach (var subj in subjects)
+                comboSubject.Items.Add(subj, subj.Title);
+            comboSubject.Items.Add(null, "New subject");
+        }
+
+        private void OnSelectedSubject(object sender, EventArgs e)
+        {
+            if (comboSubject.SelectedIndex == -1)
+                return;
+
+            var selectedItem = comboSubject.SelectedItem;
+            if (selectedItem == null)
+                CreateSubject();
+            else
+                UpdateLessons(selectedItem as Subject);
+        }
+
+        private void CreateSubject()
+        {
+            var subject = new Subject() { Title = "Test" }; // TODO: Open dialog
+            subjects.Add(subject);
+            database.SaveOrUpdate(subject);
+
+            UpdateSubjects();
+            comboSubject.SelectedItem = subject;
+        }
+
+        private void UpdateLessons(Subject subj)
+        {
+            comboLesson.Items.Clear();
+            foreach (var lesson in subj.Lessons)
+                comboLesson.Items.Add(lesson.Title);
+            comboLesson.Items.Add(null, "New lesson");
+        }
+
+        private void HandleCloseRequested(object sender, CloseRequestedEventArgs e)
         {
             Application.Exit();
         }

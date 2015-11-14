@@ -43,22 +43,9 @@ namespace Deblocus.Views
             var subjectsController = new SubjectsController(this, comboSubject);
             var lessonsController  = new LessonsController(this, comboLesson,
                 subjectsController);
-            new CardsController(this, tableCards, lessonsController);
+            new CardsController(tableCards, lessonsController);
 
             subjectsController.Update();
-
-            Deblocus.Entities.Card card1 = new Deblocus.Entities.Card {
-                Title = "This is a title about the card",
-                Description = "This is a looooooooooooooooooooo ooooooooooooooooooooooong"
-            };
-            Deblocus.Entities.Card card2 = new Deblocus.Entities.Card {
-                Title = "This is a title about the card very very very very very loooong",
-                Description = "This is a long\nlogn description\nhehehe\nhe\nhe\nhehehhe"
-            };
-
-            tableCards.Add(new CardView(card1), 0, 0);
-            tableCards.Add(new CardView(card2), 1, 0);
-            tableCards.Add(new CardView(card1), 1, 1);
         }
 
         private void CreateComponents()

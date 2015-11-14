@@ -21,27 +21,39 @@
 using System;
 using Xwt;
 using Deblocus.Entities;
+using Deblocus.Views;
 
 namespace Deblocus.Controllers
 {
     public class CardsController
     {
-        public CardsController(Window window, Table panel,
-            LessonsController lessonsController)
-        {
-            Window = window;
-            Panel = panel;
+        private const int MaxColumns = 4;
 
+        public CardsController(Table panel, LessonsController lessonsController)
+        {
+            Panel = panel;
             lessonsController.LessonChange += OnLessonChanged;
         }
 
-        public Window Window { get; private set; }
         public Table Panel { get; private set; }
         public Lesson CurrentLesson { get; private set; }
 
         private void OnLessonChanged(Lesson lesson)
         {
+            CurrentLesson = lesson;
+            Panel.Clear();
 
+            int x = 0;
+            int y = 0;
+            foreach (Card card in lesson.Cards) {
+                Panel.Add(new CardView(card), x, y);
+
+                x++;
+                if (x >= MaxColumns) {
+                    x = 0;
+                    y++;
+                }
+            }
         }
     }
 }

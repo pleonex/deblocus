@@ -28,32 +28,57 @@ namespace Deblocus.Controllers
     public class CardsController
     {
         private const int MaxColumns = 4;
+        private int row;
+        private int column;
 
-        public CardsController(Table panel, LessonsController lessonsController)
+        public CardsController(Table panel, Button btnAddCard,
+            LessonsController lessonsController)
         {
             Panel = panel;
             lessonsController.LessonChange += OnLessonChanged;
+
+            ButtonAddCard = btnAddCard;
+            btnAddCard.Sensitive = false;
+            btnAddCard.Clicked += CreateCard;
         }
 
         public Table Panel { get; private set; }
+        public Button ButtonAddCard { get; private set; }
         public Lesson CurrentLesson { get; private set; }
 
         private void OnLessonChanged(Lesson lesson)
         {
+            ButtonAddCard.Sensitive = (lesson != null);
             CurrentLesson = lesson;
+
             Panel.Clear();
+            row = 0;
+            column = 0;
 
-            int x = 0;
-            int y = 0;
-            foreach (Card card in lesson.Cards) {
-                Panel.Add(new CardView(card), x, y);
-
-                x++;
-                if (x >= MaxColumns) {
-                    x = 0;
-                    y++;
-                }
+            if (lesson != null) {
+                foreach (Card card in lesson.Cards)
+                    AddCard(card);
             }
+        }
+
+        private void AddCard(Card card)
+        {
+            Panel.Add(new CardView(card), column, row);
+
+            column++;
+            if (column >= MaxColumns) {
+                column = 0;
+                row++;
+            }
+        }
+
+        private void CreateCard(object sender, EventArgs e)
+        {
+            Card card = new Card();
+            CurrentLesson.AddCard(card);
+            DatabaseManager.Instance.SaveOrUpdate(CurrentLesson);
+
+            AddCard(card);
         }
     }
 }

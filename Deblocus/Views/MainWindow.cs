@@ -33,8 +33,8 @@ namespace Deblocus.Views
         private ComboBox comboSubject;
         private ComboBox comboLesson;
         private Button btnSettings;
+        private Button btnAddCard;
         private Table tableCards;
-
 
         public MainWindow()
         {
@@ -42,7 +42,7 @@ namespace Deblocus.Views
 
             var subjectsController = new SubjectsController(comboSubject);
             var lessonsController  = new LessonsController(comboLesson, subjectsController);
-            new CardsController(tableCards, lessonsController);
+            new CardsController(tableCards, btnAddCard, lessonsController);
 
             subjectsController.Update();
         }
@@ -95,6 +95,10 @@ namespace Deblocus.Views
             btnSettings.Style = ButtonStyle.Borderless;
             btnSettings.VerticalPlacement = WidgetPlacement.Center;
             menuBox.PackEnd(btnSettings);
+
+            btnAddCard = new Button(StockIcons.Add, "Add card");
+            btnAddCard.VerticalPlacement = WidgetPlacement.Center;
+            menuBox.PackEnd(btnAddCard);
 
             return menuBox;
         }

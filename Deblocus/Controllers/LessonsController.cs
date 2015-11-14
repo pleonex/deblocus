@@ -47,14 +47,16 @@ namespace Deblocus.Controllers
 
             LessonsBox.Items.Clear();
             foreach (var lesson in subject.Lessons)
-                LessonsBox.Items.Add(lesson.Title);
+                LessonsBox.Items.Add(lesson, lesson.Title);
             LessonsBox.Items.Add(null, "New lesson");
         }
 
-        void OnSelectedLessonChanged (object sender, EventArgs e)
+        void OnSelectedLessonChanged(object sender, EventArgs e)
         {
-            if (LessonsBox.SelectedIndex == -1)
+            if (LessonsBox.SelectedIndex == -1) {
+                OnLessonChanged(null);
                 return;
+            }
 
             var selectedItem = LessonsBox.SelectedItem;
             if (selectedItem == null)

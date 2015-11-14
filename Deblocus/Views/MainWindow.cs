@@ -46,6 +46,9 @@ namespace Deblocus.Views
             new CardsController(this, tableCards, lessonsController);
 
             subjectsController.Update();
+
+            tableCards.Add(new CardView(), 0, 0);
+            tableCards.Add(new CardView(), 1, 0);
         }
 
         private void CreateComponents()
@@ -104,6 +107,7 @@ namespace Deblocus.Views
         {
             tableCards = new Table();
             tableCards.BackgroundColor = LightBlue;
+            tableCards.DefaultColumnSpacing = 20;
 
             return tableCards;
         }

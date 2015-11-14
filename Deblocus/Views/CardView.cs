@@ -21,21 +21,29 @@
 using System;
 using Xwt;
 using Xwt.Drawing;
+using Deblocus.Entities;
 
 namespace Deblocus.Views
 {
     public class CardView : Canvas
     {
-        public CardView()
+        private const int radius = 30;
+
+        public CardView(Card card)
         {
+            Card = card;
             MinHeight = HeightRequest = 100;
             MinWidth  = WidthRequest  = 300;
+            CreateComponents();
+        }
+
+        public Card Card {
+            get; private set;
         }
 
         protected override void OnDraw(Context ctx, Rectangle dirtyRect)
         {
             base.OnDraw(ctx, dirtyRect);
-
             DrawBase(ctx);
         }
 
@@ -43,7 +51,6 @@ namespace Deblocus.Views
         {
             ctx.Save ();
 
-            const int radius = 30;
             double width  = Bounds.Width;
             double height = Bounds.Height;
 
@@ -60,6 +67,47 @@ namespace Deblocus.Views
             ctx.Fill();
 
             ctx.Restore();
+        }
+
+        private void CreateComponents()
+        {
+            var bounds = new Rectangle(
+                20,
+                5,
+                WidthRequest - 40,
+                HeightRequest - 10
+            );
+
+            var box = new VBox();
+
+            var lblTitle = new Label {
+                Text = Card.Title,
+                TooltipText = Card.Title,
+                Font = Font.WithWeight(FontWeight.Bold).WithSize(10),
+                TextAlignment = Alignment.Center,
+                Ellipsize = EllipsizeMode.End,
+            };
+            box.PackStart(lblTitle);
+
+            var lblDescription = new Label {
+                Text = Card.Description,
+                TooltipText = Card.Description,
+                Font = Font.WithSize(10),
+                TextAlignment = Alignment.Start,
+                Wrap = WrapMode.Word,
+
+                HeightRequest = bounds.Height - 45,
+                VerticalPlacement = WidgetPlacement.Start
+            };
+            box.PackStart(lblDescription);
+
+            var statusBox = new HBox();
+            statusBox.HeightRequest = 16;
+
+            statusBox.PackStart(new ImageView { Image = StockIcons.Zoom100 });
+            box.PackStart(statusBox);
+
+            AddChild(box, bounds);
         }
     }
 }

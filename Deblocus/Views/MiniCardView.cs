@@ -28,6 +28,13 @@ namespace Deblocus.Views
     public class MiniCardView : Canvas
     {
         private const int radius = 30;
+        private static readonly Color[] BaseColor = {
+            Colors.White,
+            Colors.LightGray,
+            Colors.LightSalmon,
+            Colors.AliceBlue,
+            Colors.DarkGreen
+        };
 
         public MiniCardView(Card card)
         {
@@ -55,7 +62,7 @@ namespace Deblocus.Views
             double height = Bounds.Height;
 
             // Draw border arcs
-            ctx.SetColor(Colors.LightGray);
+            ctx.SetColor(BaseColor[Card.GroupId]);
             ctx.Arc(radius, radius, radius, 180, 270);                  // Top left
             ctx.Arc(width - radius, radius, radius, 270, 0);            // Top right
             ctx.Arc(width - radius, height - radius, radius, 0, 90);    // Bottom right

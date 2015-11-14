@@ -30,6 +30,7 @@ namespace Deblocus.Views
     {
         private static readonly Color LightBlue = Color.FromBytes(149, 167, 185);
 
+        private Widget mainContent;
         private ComboBox comboSubject;
         private ComboBox comboLesson;
         private Button btnSettings;
@@ -45,6 +46,16 @@ namespace Deblocus.Views
             new CardsController(tableCards, btnAddCard, lessonsController);
 
             subjectsController.Update();
+        }
+
+        public void ChangeContent(Widget newContent)
+        {
+            Content = newContent;
+        }
+
+        public void RestoreContent()
+        {
+            Content = mainContent;
         }
 
         private void CreateComponents()
@@ -65,7 +76,7 @@ namespace Deblocus.Views
 
             // Set the content
             Padding = new WidgetSpacing();
-            Content = menuPanelDivision;
+            Content = mainContent = menuPanelDivision;
         }
 
         private Widget MakeMenuBar()
@@ -93,6 +104,7 @@ namespace Deblocus.Views
             btnSettings = new Button(StockIcons.Information);
             btnSettings.MarginRight = 10;
             btnSettings.VerticalPlacement = WidgetPlacement.Center;
+            btnSettings.Visible = false;
             menuBox.PackEnd(btnSettings);
 
             btnAddCard = new Button(StockIcons.Add, "Add card");

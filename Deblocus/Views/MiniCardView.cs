@@ -48,6 +48,13 @@ namespace Deblocus.Views
             get; private set;
         }
 
+        protected override void OnButtonReleased(ButtonEventArgs args)
+        {
+            base.OnButtonReleased(args);
+            if (args.Button == PointerButton.Left)
+                ((MainWindow)ParentWindow).ChangeContent(new CardView(Card));
+        }
+
         protected override void OnDraw(Context ctx, Rectangle dirtyRect)
         {
             base.OnDraw(ctx, dirtyRect);

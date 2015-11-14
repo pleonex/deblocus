@@ -63,7 +63,7 @@ namespace Deblocus.Controllers
 
         private void AddCard(Card card)
         {
-            Panel.Add(new CardView(card), column, row);
+            Panel.Add(new MiniCardView(card), column, row);
 
             column++;
             if (column >= MaxColumns) {

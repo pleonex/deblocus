@@ -25,11 +25,11 @@ using Deblocus.Entities;
 
 namespace Deblocus.Views
 {
-    public class CardView : Canvas
+    public class MiniCardView : Canvas
     {
         private const int radius = 30;
 
-        public CardView(Card card)
+        public MiniCardView(Card card)
         {
             Card = card;
             MinHeight = HeightRequest = 100;

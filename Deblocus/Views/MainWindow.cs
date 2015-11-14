@@ -92,7 +92,6 @@ namespace Deblocus.Views
 
             btnSettings = new Button(StockIcons.Information);
             btnSettings.MarginRight = 10;
-            btnSettings.Style = ButtonStyle.Borderless;
             btnSettings.VerticalPlacement = WidgetPlacement.Center;
             menuBox.PackEnd(btnSettings);
 

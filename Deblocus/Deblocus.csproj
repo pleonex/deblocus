@@ -56,7 +56,7 @@
     <Compile Include="Controllers\CardsController.cs" />
     <Compile Include="Controllers\SubjectsController.cs" />
     <Compile Include="Controllers\LessonsController.cs" />
-    <Compile Include="Views\CardView.cs" />
+    <Compile Include="Views\MiniCardView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FluentNHibernate">

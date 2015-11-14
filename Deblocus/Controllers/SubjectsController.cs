@@ -29,9 +29,8 @@ namespace Deblocus.Controllers
 
     public class SubjectsController
     {
-        public SubjectsController(Window window, ComboBox subjectBox)
+        public SubjectsController(ComboBox subjectBox)
         {
-            Window = window;
             SubjectBox = subjectBox;
             Subjects = DatabaseManager.Instance.Retrieve<Subject>();
 
@@ -39,7 +38,6 @@ namespace Deblocus.Controllers
         }
 
         public IList<Subject> Subjects { get; private set; }
-        public Window Window { get; private set; }
         public ComboBox SubjectBox { get; private set; }
 
         public event SubjectChangedHandler SubjectChanged;

@@ -28,17 +28,14 @@ namespace Deblocus.Controllers
 
     public class LessonsController
     {
-        public LessonsController(Window window, ComboBox lessonsBox,
-            SubjectsController subjectController)
+        public LessonsController(ComboBox lessonsBox, SubjectsController subjectController)
         {
-            Window = window;
             LessonsBox = lessonsBox;
 
             lessonsBox.SelectionChanged += OnSelectedLessonChanged;
             subjectController.SubjectChanged += OnSubjectChanged;
         }
 
-        public Window Window { get; private set; }
         public ComboBox LessonsBox { get; private set; }
         public Subject CurrentSubject { get; private set; }
 

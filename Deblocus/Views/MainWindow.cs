@@ -40,9 +40,8 @@ namespace Deblocus.Views
         {
             CreateComponents();
 
-            var subjectsController = new SubjectsController(this, comboSubject);
-            var lessonsController  = new LessonsController(this, comboLesson,
-                subjectsController);
+            var subjectsController = new SubjectsController(comboSubject);
+            var lessonsController  = new LessonsController(comboLesson, subjectsController);
             new CardsController(tableCards, lessonsController);
 
             subjectsController.Update();

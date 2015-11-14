@@ -19,6 +19,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
+using System.Linq;
 using Xwt;
 using Deblocus.Entities;
 using Deblocus.Views;
@@ -56,8 +57,9 @@ namespace Deblocus.Controllers
             column = 0;
 
             if (lesson != null) {
-                foreach (Card card in lesson.Cards)
-                    AddCard(card);
+                foreach (var cardGroup in lesson.Cards.GroupBy(c => c.GroupId).Reverse().Where(g => g.Key != 4))
+                    foreach (var card in cardGroup.OrderBy(c => c.GroupChangeDate))
+                        AddCard(card);
             }
         }
 
@@ -75,7 +77,8 @@ namespace Deblocus.Controllers
         private void CreateCard(object sender, EventArgs e)
         {
             Card card = new Card();
-            CurrentLesson.AddCard(card);
+            OnLessonChanged(CurrentLesson);
+            //CurrentLesson.AddCard(card);
             DatabaseManager.Instance.SaveOrUpdate(CurrentLesson);
 
             AddCard(card);

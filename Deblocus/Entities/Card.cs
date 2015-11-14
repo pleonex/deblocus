@@ -34,6 +34,7 @@ namespace Deblocus.Entities
             GroupChangeDate = CreationDate;
             Images = new List<Image>();
             TargetPoints = DefaultTargetPoints;
+            Visible = true;
         }
 
         public static string DefaultTitle {
@@ -57,6 +58,7 @@ namespace Deblocus.Entities
         public virtual int GroupId { get; protected set; }
         public virtual DateTime GroupChangeDate { get; protected set; }
         public virtual Lesson Lesson { get; set; }
+        public virtual bool Visible { get; set; }
 
         public virtual void GivePoint()
         {

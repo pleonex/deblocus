@@ -45,6 +45,7 @@ namespace Deblocus.UnitTests.Entities
             Assert.IsInstanceOf<DateTime>(card.GroupChangeDate);
             Assert.AreEqual(0, card.Images.Count);
             Assert.IsNull(card.Lesson);
+            Assert.IsTrue(card.Visible);
         }
 
         [Test]
@@ -73,6 +74,7 @@ namespace Deblocus.UnitTests.Entities
             Assert.AreEqual(0, card.GroupId);
             Assert.AreEqual(card.CreationDate, card.GroupChangeDate);
             Assert.IsNull(card.Lesson);
+            Assert.IsTrue(card.Visible);
         }
 
         [Test]
@@ -134,6 +136,7 @@ namespace Deblocus.UnitTests.Entities
                 Assert.AreEqual(card.TargetPoints, dbCard[0].TargetPoints);
                 Assert.AreEqual(card.GroupId, dbCard[0].GroupId);
                 Assert.AreEqual(card.GroupChangeDate, dbCard[0].GroupChangeDate);
+                Assert.AreEqual(card.Visible, dbCard[0].Visible);
             }
         }
 
@@ -171,6 +174,7 @@ namespace Deblocus.UnitTests.Entities
                 Assert.AreEqual(0, dbCards[0].GroupId);
                 Assert.AreEqual(dbCards[0].CreationDate, dbCards[0].GroupChangeDate);
                 Assert.IsNull(dbCards[0].Lesson);
+                Assert.IsTrue(dbCards[0].Visible);
             }
         }
     }

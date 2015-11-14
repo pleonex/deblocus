@@ -58,7 +58,7 @@ namespace Deblocus.Controllers
 
             if (lesson != null) {
                 foreach (var cardGroup in lesson.Cards.GroupBy(c => c.GroupId).Reverse().Where(g => g.Key != 4))
-                    foreach (var card in cardGroup.OrderBy(c => c.GroupChangeDate))
+                    foreach (var card in cardGroup.OrderBy(c => c.GroupChangeDate).Where(c => c.Visible))
                         AddCard(card);
             }
         }

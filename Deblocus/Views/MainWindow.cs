@@ -1,5 +1,5 @@
 ﻿//
-//  MainWindow.Designer.cs
+//  MainWindow.cs
 //
 //  Author:
 //       Benito Palacios Sánchez (aka pleonex) <benito356@gmail.com>
@@ -20,12 +20,13 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Reflection;
+using Deblocus.Controllers;
 using Xwt;
 using Xwt.Drawing;
 
-namespace Deblocus
+namespace Deblocus.Views
 {
-    public partial class MainWindow : Window
+    public class MainWindow : Window
     {
         private static readonly Color LightBlue = Color.FromBytes(149, 167, 185);
 
@@ -33,7 +34,20 @@ namespace Deblocus
         private ComboBox comboLesson;
         private Button btnSettings;
         private Table tableCards;
-       
+
+
+        public MainWindow()
+        {
+            CreateComponents();
+
+            var subjectsController = new SubjectsController(this, comboSubject);
+            var lessonsController  = new LessonsController(this, comboLesson,
+                subjectsController);
+            new CardsController(this, tableCards, lessonsController);
+
+            subjectsController.Update();
+        }
+
         private void CreateComponents()
         {
             Width  = 800;
@@ -65,7 +79,7 @@ namespace Deblocus
             var lblSubject = new Label("Subject:");
             lblSubject.MarginLeft = 10;
             menuBox.PackStart(lblSubject);
-            
+
             comboSubject = new ComboBox();
             menuBox.PackStart(comboSubject, vpos: WidgetPlacement.Center);
 
@@ -92,6 +106,11 @@ namespace Deblocus
             tableCards.BackgroundColor = LightBlue;
 
             return tableCards;
+        }
+
+        private void HandleCloseRequested(object sender, CloseRequestedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

@@ -36,6 +36,7 @@
     <Folder Include="Mappings\" />
     <Folder Include="Properties\" />
     <Folder Include="Controllers\" />
+    <Folder Include="Views\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Card.cs" />
@@ -50,10 +51,7 @@
     <Compile Include="MonoSQLiteDriver.cs" />
     <Compile Include="MonoSQLiteConfiguration.cs" />
     <Compile Include="DatabaseManager.cs" />
-    <Compile Include="MainWindow.cs" />
-    <Compile Include="MainWindow.Designer.cs">
-      <DependentUpon>MainWindow.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Views\MainWindow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\CardsController.cs" />
     <Compile Include="Controllers\SubjectsController.cs" />

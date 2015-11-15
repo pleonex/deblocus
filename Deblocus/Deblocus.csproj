@@ -59,6 +59,7 @@
     <Compile Include="Views\MiniCardView.cs" />
     <Compile Include="Views\CardView.cs" />
     <Compile Include="Controllers\CardViewController.cs" />
+    <Compile Include="Views\ImageCanvas.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FluentNHibernate">

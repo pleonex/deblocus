@@ -20,6 +20,7 @@
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using Deblocus.Views;
+using Xwt;
 
 namespace Deblocus.Controllers
 {
@@ -34,6 +35,7 @@ namespace Deblocus.Controllers
             View.ButtonFailClicked   += ButtonReturnClicked;
             View.ButtonPassClicked   += ButtonPassClicked;
             View.ButtonEditToggled   += ButtonEditToggled;
+            View.ButtonAddImageClicked += ButtonAddImageClicked;
 
             Window = window;
             Window.ChangeContent(View);
@@ -57,6 +59,28 @@ namespace Deblocus.Controllers
 
         private void ButtonEditToggled(object sender, EventArgs e)
         {
+            View.UpdateView();
+        }
+
+        private void ButtonAddImageClicked(object sender, EventArgs e)
+        {
+            var dialog = new OpenFileDialog {
+                Title = "Select an image",
+                Multiselect = true,
+
+            };
+            dialog.Filters.Add(new FileDialogFilter("Image files",
+                "*.png", "*.bmp", "*.jpeg", "*.jpg"));
+
+            if (!dialog.Run(View.ParentWindow))
+                return;
+
+            foreach (var filename in dialog.FileNames) {
+                Card.AddImage(new Deblocus.Entities.Image {
+                    Data = System.IO.File.ReadAllBytes(filename)
+                });
+            }
+
             View.UpdateView();
         }
     }

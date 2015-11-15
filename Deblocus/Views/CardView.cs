@@ -67,6 +67,11 @@ namespace Deblocus.Views
             remove { btnEdit.Toggled -= value; }
         }
 
+        public event EventHandler ButtonAddImageClicked {
+            add { btnAddImage.Clicked += value; }
+            remove { btnAddImage.Clicked -= value; }
+        }
+
         public void UpdateView()
         {
             bool isEditMode = btnEdit.Active;
@@ -89,8 +94,8 @@ namespace Deblocus.Views
             lblDescription.Visible = !isEditMode;
             txtDescription.Visible = isEditMode;
 
-            UpdateImagesView();
             btnAddImage.Visible = isEditMode;
+            UpdateImagesView();
 
             btnPass.Sensitive = !isEditMode;
             btnFail.Sensitive = !isEditMode;
@@ -159,21 +164,26 @@ namespace Deblocus.Views
         private Widget CreateImagesView()
         {
             imagesBox = new VBox();
+
+            btnAddImage = new Button(StockIcons.Add, "Add image");
+            btnAddImage.Visible = false;
+
             UpdateImagesView();
 
-            return new ScrollView(imagesBox);
+            return new ScrollView(imagesBox) {
+                HorizontalScrollPolicy = ScrollPolicy.Never,
+                VerticalScrollPolicy   = ScrollPolicy.Always
+            };
         }
 
         private void UpdateImagesView()
         {
             imagesBox.Clear();
 
-            btnAddImage = new Button(StockIcons.Add, "Add image");
-            btnAddImage.Visible = false;
             imagesBox.PackStart(btnAddImage);
 
             foreach (var img in Card.Images)
-                imagesBox.PackStart(new ImageView(img.GetImage()));
+                imagesBox.PackStart(new ImageCanvas(img.GetImage()), false);
 
             if (Card.Images.Count == 0)
                 imagesBox.PackStart(new Label("No Images") { Font = Font.WithSize(15) });

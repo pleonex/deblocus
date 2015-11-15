@@ -45,6 +45,7 @@ namespace Deblocus.Controllers
         private void ButtonPassClicked(object sender, EventArgs e)
         {
             Card.GivePoint();
+            DatabaseManager.Instance.SaveOrUpdate(Card);
             Window.RestoreContent();
         }
 

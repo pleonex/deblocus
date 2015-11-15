@@ -29,12 +29,20 @@ namespace Deblocus.Views
         private Button btnPass;
         private Button btnFail;
         private Button btnReturn;
-        private Button btnEdit;
+        private ToggleButton btnEdit;
+        private Button btnAddImage;
+
+        private Label lblTitle;
+        private TextEntry txtTitle;
+        private MarkdownView lblDescription;
+        private TextArea txtDescription;
+        private VBox imagesBox;
 
         public CardView(Deblocus.Entities.Card card)
         {
             Card = card;
             CreateComponents();
+            UpdateView();
         }
 
         public Deblocus.Entities.Card Card { get; private set; }
@@ -54,9 +62,38 @@ namespace Deblocus.Views
             remove { btnReturn.Clicked -= value; }
         }
 
-        public event EventHandler ButtonEditClicked {
-            add { btnEdit.Clicked += value; }
-            remove { btnEdit.Clicked -= value; }
+        public event EventHandler ButtonEditToggled {
+            add { btnEdit.Toggled += value; }
+            remove { btnEdit.Toggled -= value; }
+        }
+
+        public void UpdateView()
+        {
+            bool isEditMode = btnEdit.Active;
+
+            // Save changed data
+            if (!isEditMode) {
+                Card.Title = txtTitle.Text;
+                lblTitle.Text = Card.Title;
+
+                Card.Description = txtDescription.Text;
+                lblDescription.Markdown = Card.Description;
+
+                DatabaseManager.Instance.SaveOrUpdate(Card);
+            }
+
+            // Toggle visibility
+            lblTitle.Visible = !isEditMode;
+            txtTitle.Visible = isEditMode;
+
+            lblDescription.Visible = !isEditMode;
+            txtDescription.Visible = isEditMode;
+
+            UpdateImagesView();
+            btnAddImage.Visible = isEditMode;
+
+            btnPass.Sensitive = !isEditMode;
+            btnFail.Sensitive = !isEditMode;
         }
 
         private void CreateComponents()
@@ -77,14 +114,24 @@ namespace Deblocus.Views
         {
             var topBox = new HBox();
 
-            var lblTitle = new Label {
+            lblTitle = new Label {
                 Text = Card.Title,
                 Font = Font.WithWeight(FontWeight.Bold).WithSize(20),
                 TextAlignment = Alignment.Center,
-                Wrap = WrapMode.Word };
+                Wrap = WrapMode.Word,
+                Visible = false
+            };
             topBox.PackStart(lblTitle, true);
 
-            btnEdit = new Button(StockIcons.Warning);
+            txtTitle = new TextEntry {
+                Text = Card.Title,
+                Font = lblTitle.Font,
+                TextAlignment = Alignment.Center,
+                Visible = false
+            };
+            topBox.PackStart(txtTitle, true);
+
+            btnEdit = new ToggleButton(StockIcons.Warning);
             topBox.PackEnd(btnEdit);
 
             return topBox;
@@ -92,24 +139,44 @@ namespace Deblocus.Views
 
         private Widget CreateDescriptionView()
         {
-            var mkDescription = new MarkdownView {
-                Markdown = Card.Description ?? "",
-            };
+            var virtualBox = new VBox();
 
-            return new ScrollView(mkDescription);
+            lblDescription = new MarkdownView {
+                Markdown = Card.Description ?? "",
+                Visible = false
+            };
+            virtualBox.PackStart(lblDescription, true);
+
+            txtDescription = new TextArea {
+                Text = Card.Description ?? "",
+                Visible = false
+            };
+            virtualBox.PackStart(txtDescription, true);
+
+            return new ScrollView(virtualBox);
         }
 
         private Widget CreateImagesView()
         {
-            var imagesBox = new VBox();
+            imagesBox = new VBox();
+            UpdateImagesView();
+
+            return new ScrollView(imagesBox);
+        }
+
+        private void UpdateImagesView()
+        {
+            imagesBox.Clear();
+
+            btnAddImage = new Button(StockIcons.Add, "Add image");
+            btnAddImage.Visible = false;
+            imagesBox.PackStart(btnAddImage);
 
             foreach (var img in Card.Images)
                 imagesBox.PackStart(new ImageView(img.GetImage()));
 
             if (Card.Images.Count == 0)
                 imagesBox.PackStart(new Label("No Images") { Font = Font.WithSize(15) });
-
-            return new ScrollView(imagesBox);
         }
 
         private Widget CreateButtonsBar()

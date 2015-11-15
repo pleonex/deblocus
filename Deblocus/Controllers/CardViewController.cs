@@ -33,6 +33,7 @@ namespace Deblocus.Controllers
             View.ButtonReturnClicked += ButtonReturnClicked;
             View.ButtonFailClicked   += ButtonReturnClicked;
             View.ButtonPassClicked   += ButtonPassClicked;
+            View.ButtonEditToggled   += ButtonEditToggled;
 
             Window = window;
             Window.ChangeContent(View);
@@ -52,6 +53,11 @@ namespace Deblocus.Controllers
         private void ButtonReturnClicked(object sender, EventArgs e)
         {
             Window.RestoreContent();
+        }
+
+        private void ButtonEditToggled(object sender, EventArgs e)
+        {
+            View.UpdateView();
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿//
-//  ImageCanvas.cs
+//  ImageViewDialog.cs
 //
 //  Author:
 //       Benito Palacios Sánchez (aka pleonex) <benito356@gmail.com>
@@ -24,34 +24,28 @@ using Xwt.Drawing;
 
 namespace Deblocus.Views
 {
-    // NOTE: This is not a generic widget. It's very hacked to the current needs.
-    public class ImageCanvas : Canvas
+    public class ImageViewDialog : Dialog
     {
-        public ImageCanvas(Image img)
+        private Table table;
+
+        public ImageViewDialog(Image image)
         {
-            Image = img;
-        }
+            Decorated = false;
+            ShowInTaskbar = false;
+            FullScreen = true;
+            Padding = new WidgetSpacing();
 
-        public Image Image { get; set; }
+            table = new Table();
+            table.BackgroundColor = Colors.Black;
 
-        protected override void OnDraw(Context ctx, Rectangle dirtyRect)
-        {
-            base.OnDraw(ctx, dirtyRect);
+            Button btnLeft = new Button("<");
+            btnLeft.Clicked += (sender, e) => this.Dispose();
+            table.Add(btnLeft, 0, 0, vpos: WidgetPlacement.Center);
+            table.Add(new ImageCanvas(image), 1, 0, 1, 1, true, true,
+                WidgetPlacement.Center, WidgetPlacement.Center);
+            table.Add(new Button(">"), 2, 0, vpos: WidgetPlacement.Center);
 
-            if (Image != null) {
-                double width = Bounds.Width == 1 ? Image.Width : Bounds.Width;
-                if (Bounds.Width == 1)
-                    WidthRequest = width;
-
-                // Scale height respect width
-                double height = (Bounds.Width / Image.Width) * Image.Height;
-                if (HeightRequest != height)
-                    HeightRequest = height;
-                else
-                    height = Bounds.Height;
-
-                ctx.DrawImage(Image, 0, 0, width, height);
-            }
+            Content = table;
         }
     }
 }

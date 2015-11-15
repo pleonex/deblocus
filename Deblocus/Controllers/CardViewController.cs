@@ -36,6 +36,7 @@ namespace Deblocus.Controllers
             View.ButtonPassClicked   += ButtonPassClicked;
             View.ButtonEditToggled   += ButtonEditToggled;
             View.ButtonAddImageClicked += ButtonAddImageClicked;
+            View.ImageClicked += ImageClicked;
 
             Window = window;
             Window.ChangeContent(View);
@@ -82,6 +83,11 @@ namespace Deblocus.Controllers
             }
 
             View.UpdateView();
+        }
+            
+        private void ImageClicked(dynamic sender, ButtonEventArgs e)
+        {
+            new ImageViewDialog(sender.Image).Run(sender.ParentWindow);
         }
     }
 }

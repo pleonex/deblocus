@@ -19,6 +19,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
+using System.Linq;
 using Xwt;
 using Xwt.Drawing;
 
@@ -70,6 +71,20 @@ namespace Deblocus.Views
         public event EventHandler ButtonAddImageClicked {
             add { btnAddImage.Clicked += value; }
             remove { btnAddImage.Clicked -= value; }
+        }
+
+        public event EventHandler<ButtonEventArgs> ImageClicked {
+            add
+            {
+                foreach (var imgCanvas in imagesBox.Children.OfType<ImageCanvas>())
+                    imgCanvas.ButtonReleased += value;
+            }
+
+            remove
+            {
+                foreach (var imgCanvas in imagesBox.Children.OfType<ImageCanvas>())
+                    imgCanvas.ButtonReleased -= value;
+            }
         }
 
         public void UpdateView()
@@ -177,7 +192,7 @@ namespace Deblocus.Views
         }
 
         private void UpdateImagesView()
-        {
+        {           
             imagesBox.Clear();
 
             imagesBox.PackStart(btnAddImage);

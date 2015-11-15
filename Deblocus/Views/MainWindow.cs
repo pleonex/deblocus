@@ -37,13 +37,18 @@ namespace Deblocus.Views
         private Button btnAddCard;
         private Table tableCards;
 
+        private readonly SubjectsController subjectsController;
+        private readonly LessonsController lessonsController;
+        private readonly CardsController cardsController;
+
         public MainWindow()
         {
             CreateComponents();
 
-            var subjectsController = new SubjectsController(comboSubject);
-            var lessonsController  = new LessonsController(comboLesson, subjectsController);
-            new CardsController(tableCards, btnAddCard, lessonsController);
+            subjectsController = new SubjectsController(comboSubject);
+            lessonsController  = new LessonsController(comboLesson, subjectsController);
+            cardsController    = new CardsController(tableCards, btnAddCard,
+                lessonsController);
 
             subjectsController.Update();
         }
@@ -57,6 +62,7 @@ namespace Deblocus.Views
         {
             Content.Dispose();
             Content = mainContent;
+            cardsController.UpdateView();
         }
 
         private void CreateComponents()

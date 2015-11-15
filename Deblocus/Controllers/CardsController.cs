@@ -47,17 +47,14 @@ namespace Deblocus.Controllers
         public Button ButtonAddCard { get; private set; }
         public Lesson CurrentLesson { get; private set; }
 
-        private void OnLessonChanged(Lesson lesson)
+        public void UpdateView()
         {
-            ButtonAddCard.Sensitive = (lesson != null);
-            CurrentLesson = lesson;
-
             Panel.Clear();
             row = 0;
             column = 0;
 
-            if (lesson != null) {
-                foreach (var cardGroup in lesson.Cards
+            if (CurrentLesson != null) {
+                foreach (var cardGroup in CurrentLesson.Cards
                         .GroupBy(c => c.GroupId)
                         .Reverse()
                         .Where(g => g.Key != 4))
@@ -81,13 +78,20 @@ namespace Deblocus.Controllers
             }
         }
 
+        private void OnLessonChanged(Lesson lesson)
+        {
+            ButtonAddCard.Sensitive = (lesson != null);
+            CurrentLesson = lesson;
+            UpdateView();
+        }
+
         private void CreateCard(object sender, EventArgs e)
         {
             Card card = new Card();
             CurrentLesson.AddCard(card);
             DatabaseManager.Instance.SaveOrUpdate(CurrentLesson);
 
-            OnLessonChanged(CurrentLesson);
+            UpdateView();
         }
 
         private void OnCardClicked(dynamic sender, ButtonEventArgs args)

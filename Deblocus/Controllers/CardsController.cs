@@ -57,15 +57,22 @@ namespace Deblocus.Controllers
             column = 0;
 
             if (lesson != null) {
-                foreach (var cardGroup in lesson.Cards.GroupBy(c => c.GroupId).Reverse().Where(g => g.Key != 4))
-                    foreach (var card in cardGroup.OrderBy(c => c.GroupChangeDate).Where(c => c.Visible))
+                foreach (var cardGroup in lesson.Cards
+                        .GroupBy(c => c.GroupId)
+                        .Reverse()
+                        .Where(g => g.Key != 4))
+                    foreach (var card in cardGroup
+                            .OrderBy(c => c.GroupChangeDate)
+                            .Where(c => c.Visible))
                         AddCard(card);
             }
         }
 
         private void AddCard(Card card)
         {
-            Panel.Add(new MiniCardView(card), column, row);
+            var miniCard = new MiniCardView(card);
+            miniCard.Clicked += OnCardClicked;
+            Panel.Add(miniCard, column, row);
 
             column++;
             if (column >= MaxColumns) {
@@ -77,11 +84,16 @@ namespace Deblocus.Controllers
         private void CreateCard(object sender, EventArgs e)
         {
             Card card = new Card();
-            OnLessonChanged(CurrentLesson);
-            //CurrentLesson.AddCard(card);
+            CurrentLesson.AddCard(card);
             DatabaseManager.Instance.SaveOrUpdate(CurrentLesson);
 
-            AddCard(card);
+            OnLessonChanged(CurrentLesson);
+        }
+
+        private void OnCardClicked(dynamic sender, ButtonEventArgs args)
+        {
+            if (args.Button == PointerButton.Left)
+                sender.ParentWindow.ChangeContent(new CardView(sender.Card));
         }
     }
 }

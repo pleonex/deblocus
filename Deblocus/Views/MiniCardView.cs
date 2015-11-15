@@ -48,11 +48,9 @@ namespace Deblocus.Views
             get; private set;
         }
 
-        protected override void OnButtonReleased(ButtonEventArgs args)
-        {
-            base.OnButtonReleased(args);
-            if (args.Button == PointerButton.Left)
-                ((MainWindow)ParentWindow).ChangeContent(new CardView(Card));
+        public event EventHandler<ButtonEventArgs> Clicked {
+            add { this.ButtonReleased += value; }
+            remove { this.ButtonReleased -= value; }
         }
 
         protected override void OnDraw(Context ctx, Rectangle dirtyRect)

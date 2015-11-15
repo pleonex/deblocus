@@ -58,6 +58,7 @@
     <Compile Include="Controllers\LessonsController.cs" />
     <Compile Include="Views\MiniCardView.cs" />
     <Compile Include="Views\CardView.cs" />
+    <Compile Include="Controllers\CardViewController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FluentNHibernate">
@@ -80,6 +81,7 @@
     <Reference Include="Xwt.Gtk">
       <HintPath>..\xwt\Xwt.Gtk\bin\Debug\Xwt.Gtk.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

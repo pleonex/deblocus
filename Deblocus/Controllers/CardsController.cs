@@ -93,7 +93,7 @@ namespace Deblocus.Controllers
         private void OnCardClicked(dynamic sender, ButtonEventArgs args)
         {
             if (args.Button == PointerButton.Left)
-                sender.ParentWindow.ChangeContent(new CardView(sender.Card));
+                new CardViewController(sender.ParentWindow, sender.Card);
         }
     }
 }

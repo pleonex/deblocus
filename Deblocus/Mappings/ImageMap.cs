@@ -32,6 +32,7 @@ namespace Deblocus.Mappings
             Map(x => x.Data);
             Map(x => x.Name);
             Map(x => x.Description);
+            References(x => x.Card);
         }
     }
 }

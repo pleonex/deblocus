@@ -60,6 +60,12 @@ namespace Deblocus.Entities
         public virtual Lesson Lesson { get; set; }
         public virtual bool Visible { get; set; }
 
+        public virtual void AddImage(Image img)
+        {
+            img.Card = this;
+            Images.Add(img);
+        }
+
         public virtual void GivePoint()
         {
             Points++;

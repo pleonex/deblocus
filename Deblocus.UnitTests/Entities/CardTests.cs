@@ -54,7 +54,7 @@ namespace Deblocus.UnitTests.Entities
             Image image = new Image { Name = "My Image" };
 
             Card card = new Card();
-            card.Images.Add(image);
+            card.AddImage(image);
 
             Assert.AreEqual(1, card.Images.Count);
             Assert.AreSame(image, card.Images[0]);
@@ -145,7 +145,7 @@ namespace Deblocus.UnitTests.Entities
         {
             Image image = new Image { Name = "The Image" };
             Card card = new Card { Title = "Test Image in DB" };
-            card.Images.Add(image);
+            card.AddImage(image);
 
             SaveOrUpdate(card);
 

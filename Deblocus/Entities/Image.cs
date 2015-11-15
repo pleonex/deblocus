@@ -43,6 +43,7 @@ namespace Deblocus.Entities
             set { name = string.IsNullOrEmpty(value) ? DefaultName : value; }
         }
         public virtual string Description { get; set; }
+        public virtual Card Card { get; set; }
 
         public virtual Xwt.Drawing.Image GetImage()
         {

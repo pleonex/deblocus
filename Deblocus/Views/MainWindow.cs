@@ -55,6 +55,7 @@ namespace Deblocus.Views
 
         public void RestoreContent()
         {
+            Content.Dispose();
             Content = mainContent;
         }
 

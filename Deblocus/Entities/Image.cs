@@ -25,6 +25,7 @@ namespace Deblocus.Entities
     public class Image
     {
         private string name;
+        private Xwt.Drawing.Image imageObj;
 
         public Image()
         {
@@ -42,6 +43,13 @@ namespace Deblocus.Entities
             set { name = string.IsNullOrEmpty(value) ? DefaultName : value; }
         }
         public virtual string Description { get; set; }
+
+        public virtual Xwt.Drawing.Image GetImage()
+        {
+            if (imageObj == null)
+                imageObj = Xwt.Drawing.Image.FromStream(new System.IO.MemoryStream(Data));
+            return imageObj;
+        }
     }
 }
 

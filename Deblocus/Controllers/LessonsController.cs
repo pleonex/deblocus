@@ -21,6 +21,7 @@
 using System;
 using Deblocus.Entities;
 using Xwt;
+using Deblocus.Views;
 
 namespace Deblocus.Controllers
 {
@@ -67,11 +68,17 @@ namespace Deblocus.Controllers
             
         private void Create()
         {
-            var lesson = new Lesson() { Title = "Test" }; // TODO: Open dialog
-            CurrentSubject.AddLesson(lesson);
-            DatabaseManager.Instance.SaveOrUpdate(CurrentSubject);
+            var questionDialog = new QuestionDialog("Lesson");
+            if (questionDialog.Run(LessonsBox.ParentWindow) == Command.Ok) {            
+                var lesson = new Lesson() { Title = questionDialog.Result };
+                CurrentSubject.AddLesson(lesson);
+                DatabaseManager.Instance.SaveOrUpdate(CurrentSubject);
 
-            OnSubjectChanged(CurrentSubject);
+                OnSubjectChanged(CurrentSubject);
+            }
+
+            LessonsBox.SelectedIndex = -1;
+            questionDialog.Dispose();
         }
 
         private void OnLessonChanged(Lesson lesson)

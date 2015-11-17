@@ -61,6 +61,7 @@
     <Compile Include="Controllers\CardViewController.cs" />
     <Compile Include="Views\ImageCanvas.cs" />
     <Compile Include="Views\ImageViewDialog.cs" />
+    <Compile Include="Views\QuestionDialog.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FluentNHibernate">

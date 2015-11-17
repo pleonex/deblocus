@@ -22,6 +22,7 @@ using System;
 using Xwt;
 using System.Collections.Generic;
 using Deblocus.Entities;
+using Deblocus.Views;
 
 namespace Deblocus.Controllers
 {
@@ -47,16 +48,22 @@ namespace Deblocus.Controllers
             SubjectBox.Items.Clear();
             foreach (var subj in Subjects)
                 SubjectBox.Items.Add(subj, subj.Title);
-            SubjectBox.Items.Add(null, "New subject");
+            SubjectBox.Items.Add(null, "New subject");                
         }
 
         private void Create()
         {
-            var subject = new Subject() { Title = "Test" }; // TODO: Open dialog
-            Subjects.Add(subject);
-            DatabaseManager.Instance.SaveOrUpdate(subject);
+            var questionDialog = new QuestionDialog("Subject");
+            if (questionDialog.Run(SubjectBox.ParentWindow) == Command.Ok) {
+                var subject = new Subject() { Title = questionDialog.Result };
+                Subjects.Add(subject);
+                DatabaseManager.Instance.SaveOrUpdate(subject);
 
-            Update();
+                Update();
+            }
+
+            SubjectBox.SelectedIndex = -1;
+            questionDialog.Dispose();
         }
 
         private void OnSubjectChanged(Subject subject)

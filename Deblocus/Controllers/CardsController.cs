@@ -28,12 +28,12 @@ namespace Deblocus.Controllers
 {
     public class CardsController
     {
-        private const int MaxColumns = 4;
+        private const int MaxColumns = 3;
         private int row;
         private int column;
 
         public CardsController(Table panel, Button btnAddCard,
-            LessonsController lessonsController)
+            CoursesController lessonsController)
         {
             Panel = panel;
             lessonsController.LessonChange += OnLessonChanged;

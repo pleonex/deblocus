@@ -31,26 +31,28 @@ namespace Deblocus.Views
         private static readonly Color LightBlue = Color.FromBytes(149, 167, 185);
 
         private Widget mainContent;
-        private ComboBox comboSubject;
-        private ComboBox comboLesson;
-        private Button btnSettings;
+        private TreeView coursesView;
         private Button btnAddCard;
+        private Button btnAddSubject;
+        private Button btnAddLesson;
         private Table tableCards;
 
-        private readonly SubjectsController subjectsController;
-        private readonly LessonsController lessonsController;
+        private readonly CoursesController lessonsController;
         private readonly CardsController cardsController;
 
         public MainWindow()
         {
             CreateComponents();
 
-            subjectsController = new SubjectsController(comboSubject);
-            lessonsController  = new LessonsController(comboLesson, subjectsController);
-            cardsController    = new CardsController(tableCards, btnAddCard,
+            lessonsController = new CoursesController(
+                coursesView,
+                btnAddSubject,
+                btnAddLesson);
+            
+            cardsController = new CardsController(
+                tableCards,
+                btnAddCard,
                 lessonsController);
-
-            subjectsController.Update();
         }
 
         public void ChangeContent(Widget newContent)
@@ -67,7 +69,7 @@ namespace Deblocus.Views
 
         private void CreateComponents()
         {
-            Width  = 800;
+            Width  = 1150;
             Height = 600;
 
             Version version = Assembly.GetExecutingAssembly().GetName().Version;
@@ -76,54 +78,45 @@ namespace Deblocus.Views
 
             CloseRequested += HandleCloseRequested;
 
-            var menuPanelDivision = new VBox();
+            var menuPanelDivision = new HPaned();
             menuPanelDivision.BackgroundColor = LightBlue;
-            menuPanelDivision.PackStart(MakeMenuBar(), margin: 0);
-            menuPanelDivision.PackStart(MakePanel(), true, margin: 0);
+            menuPanelDivision.Panel1.Content = MakeSidebar();
+            menuPanelDivision.Panel2.Content = MakePanel();
 
             // Set the content
             Padding = new WidgetSpacing();
             Content = mainContent = menuPanelDivision;
         }
 
-        private Widget MakeMenuBar()
+        private Widget MakeSidebar()
         {
-            var menuBox = new HBox();
-            menuBox.MinHeight = 30;
-            menuBox.BackgroundColor = Colors.LightPink;
-            menuBox.Margin = new WidgetSpacing();
+            coursesView = new TreeView();
+            coursesView.BackgroundColor = Colors.White;
+            coursesView.HeadersVisible = false;
+            coursesView.WidthRequest = 250;
 
-            var lblSubject = new Label("Subject:");
-            lblSubject.MarginLeft = 10;
-            menuBox.PackStart(lblSubject);
+            btnAddSubject = new Button("Add subject");
+            btnAddLesson  = new Button("Add lesson");
+            btnAddLesson.Sensitive = false;
+            btnAddCard = new Button("Add card");
+            btnAddCard.Sensitive = false;
 
-            comboSubject = new ComboBox();
-            menuBox.PackStart(comboSubject, vpos: WidgetPlacement.Center);
+            var topMenu = new HBox();
+            topMenu.PackStart(btnAddSubject);
+            topMenu.PackStart(btnAddLesson);
+            topMenu.PackStart(btnAddCard);
 
-            var lblLesson = new Label("Lesson:");
-            lblLesson.MarginLeft = 10;
-            menuBox.PackStart(lblLesson);
-
-            comboLesson = new ComboBox();
-            comboLesson.WidthRequest = 120;
-            menuBox.PackStart(comboLesson, vpos: WidgetPlacement.Center);
-
-            btnSettings = new Button(StockIcons.Information);
-            btnSettings.MarginRight = 10;
-            btnSettings.VerticalPlacement = WidgetPlacement.Center;
-            btnSettings.Visible = false;
-            menuBox.PackEnd(btnSettings);
-
-            btnAddCard = new Button(StockIcons.Add, "Add card");
-            btnAddCard.VerticalPlacement = WidgetPlacement.Center;
-            menuBox.PackEnd(btnAddCard);
-
-            return menuBox;
+            var vbox = new VBox();
+            vbox.BackgroundColor = Colors.White;
+            vbox.PackStart(topMenu);
+            vbox.PackStart(coursesView, true, true);
+            return vbox;
         }
 
         private Widget MakePanel()
         {
             tableCards = new Table();
+            tableCards.WidthRequest = 900;
             tableCards.BackgroundColor = LightBlue;
             tableCards.DefaultColumnSpacing = 20;
             tableCards.Margin = 5;

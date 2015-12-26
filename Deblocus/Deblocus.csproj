@@ -54,14 +54,13 @@
     <Compile Include="Views\MainWindow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\CardsController.cs" />
-    <Compile Include="Controllers\SubjectsController.cs" />
-    <Compile Include="Controllers\LessonsController.cs" />
     <Compile Include="Views\MiniCardView.cs" />
     <Compile Include="Views\CardView.cs" />
     <Compile Include="Controllers\CardViewController.cs" />
     <Compile Include="Views\ImageCanvas.cs" />
     <Compile Include="Views\ImageViewDialog.cs" />
     <Compile Include="Views\QuestionDialog.cs" />
+    <Compile Include="Controllers\CoursesController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FluentNHibernate">

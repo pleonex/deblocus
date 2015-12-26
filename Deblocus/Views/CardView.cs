@@ -125,6 +125,7 @@ namespace Deblocus.Views
             var bodyBox = new HPaned();
             bodyBox.Panel1.Content = CreateDescriptionView();
             bodyBox.Panel2.Content = CreateImagesView();
+
             PackStart(bodyBox, true);
 
             PackEnd(CreateButtonsBar());
@@ -173,12 +174,15 @@ namespace Deblocus.Views
             };
             virtualBox.PackStart(txtDescription, true);
 
-            return new ScrollView(virtualBox);
+            var scrollView = new ScrollView(virtualBox);
+            scrollView.WidthRequest = 600;
+            return scrollView;
         }
 
         private Widget CreateImagesView()
         {
             imagesBox = new VBox();
+            imagesBox.WidthRequest = 400;
 
             btnAddImage = new Button(StockIcons.Add, "Add image");
             btnAddImage.Visible = false;

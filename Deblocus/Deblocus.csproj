@@ -37,6 +37,7 @@
     <Folder Include="Properties\" />
     <Folder Include="Controllers\" />
     <Folder Include="Views\" />
+    <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Card.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="Views\ImageViewDialog.cs" />
     <Compile Include="Views\QuestionDialog.cs" />
     <Compile Include="Controllers\CoursesController.cs" />
+    <Compile Include="Resources\ResourcesManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FluentNHibernate">
@@ -87,5 +89,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\pencil.png" />
+    <EmbeddedResource Include="Resources\image_add.png" />
+    <EmbeddedResource Include="Resources\images.png" />
   </ItemGroup>
 </Project>

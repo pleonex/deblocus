@@ -152,7 +152,7 @@ namespace Deblocus.Views
             };
             topBox.PackStart(txtTitle, true);
 
-            btnEdit = new ToggleButton(StockIcons.Warning);
+            btnEdit = new ToggleButton(ResourcesManager.GetImage("pencil.png"));
             topBox.PackEnd(btnEdit);
 
             return topBox;
@@ -184,7 +184,7 @@ namespace Deblocus.Views
             imagesBox = new VBox();
             imagesBox.WidthRequest = 400;
 
-            btnAddImage = new Button(StockIcons.Add, "Add image");
+            btnAddImage = new Button(ResourcesManager.GetImage("image_add.png"), "Add image");
             btnAddImage.Visible = false;
 
             UpdateImagesView();

@@ -117,7 +117,7 @@ namespace Deblocus.Views
             statusBox.HeightRequest = 16;
 
             if (Card.Images.Count > 0)
-                statusBox.PackEnd(new ImageView { Image = StockIcons.Zoom100 });
+                statusBox.PackEnd(new ImageView { Image = ResourcesManager.GetImage("images.png") });
             box.PackStart(statusBox);
 
             AddChild(box, bounds);

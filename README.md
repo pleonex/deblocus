@@ -1,4 +1,10 @@
 # Deblocus
+
+<p align="center">
+<a href="https://travis-ci.org/pleonex/Deblocus"><img alt="Build Status" src="https://travis-ci.org/pleonex/deblocus.svg?branch=develop" align="left" /></a>
+<a href="http://www.gnu.org/copyleft/gpl.html"><img alt="license" src="https://img.shields.io/badge/license-GPL%20V3-blue.svg?style=flat" /></a>
+</p>
+
 A card list manager for students - Débloque ton blocus!
 
 

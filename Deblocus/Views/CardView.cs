@@ -32,6 +32,7 @@ namespace Deblocus.Views
         private Button btnReturn;
         private ToggleButton btnEdit;
         private Button btnAddImage;
+        private Button btnAddImageFromClipboard;
 
         private Label lblTitle;
         private TextEntry txtTitle;
@@ -73,6 +74,11 @@ namespace Deblocus.Views
             remove { btnAddImage.Clicked -= value; }
         }
 
+        public event EventHandler ButtonAddImageFromClipboardClicked {
+            add { btnAddImageFromClipboard.Clicked += value; }
+            remove { btnAddImageFromClipboard.Clicked -= value; }
+        }
+
         public event EventHandler<ButtonEventArgs> ImageClicked {
             add
             {
@@ -110,6 +116,7 @@ namespace Deblocus.Views
             txtDescription.Visible = isEditMode;
 
             btnAddImage.Visible = isEditMode;
+            btnAddImageFromClipboard.Visible = isEditMode;
             UpdateImagesView();
 
             btnPass.Sensitive = !isEditMode;
@@ -184,8 +191,15 @@ namespace Deblocus.Views
             imagesBox = new VBox();
             imagesBox.WidthRequest = 400;
 
-            btnAddImage = new Button(ResourcesManager.GetImage("image_add.png"), "Add image");
+            btnAddImage = new Button(
+                ResourcesManager.GetImage("image_add.png"),
+                "Image from file");
             btnAddImage.Visible = false;
+
+            btnAddImageFromClipboard = new Button(
+                ResourcesManager.GetImage("paste_image.png"),
+                "Image from clipboard");
+            btnAddImageFromClipboard.Visible = false;
 
             UpdateImagesView();
 
@@ -200,6 +214,7 @@ namespace Deblocus.Views
             imagesBox.Clear();
 
             imagesBox.PackStart(btnAddImage);
+            imagesBox.PackStart(btnAddImageFromClipboard);
 
             foreach (var img in Card.Images)
                 imagesBox.PackStart(new ImageCanvas(img.GetImage()), false);

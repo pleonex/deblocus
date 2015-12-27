@@ -19,6 +19,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using System;
+using System.IO;
 using Deblocus.Views;
 using Xwt;
 
@@ -36,6 +37,7 @@ namespace Deblocus.Controllers
             View.ButtonPassClicked   += ButtonPassClicked;
             View.ButtonEditToggled   += ButtonEditToggled;
             View.ButtonAddImageClicked += ButtonAddImageClicked;
+            View.ButtonAddImageFromClipboardClicked += ButtonAddImageFromClipboardClicked;
             View.ImageClicked += ImageClicked;
 
             Window = window;
@@ -88,6 +90,25 @@ namespace Deblocus.Controllers
                     Data = System.IO.File.ReadAllBytes(filename)
                 });
             }
+
+            View.UpdateView();
+        }
+
+        private void ButtonAddImageFromClipboardClicked(object sender, EventArgs e)
+        {
+            
+            if (!Clipboard.ContainsImage())
+                return;
+
+            // Get the image from the clipboard and save to a temp buffer.
+            var image = Clipboard.GetImage();
+            var imageData = new MemoryStream();
+            image.Save(imageData, Xwt.Drawing.ImageFileType.Png);
+
+            Card.AddImage(new Deblocus.Entities.Image {
+                Data = imageData.ToArray()
+            });
+            imageData.Dispose();
 
             View.UpdateView();
         }

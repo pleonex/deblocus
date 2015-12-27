@@ -56,7 +56,7 @@ namespace Deblocus.Controllers
             if (CurrentLesson != null) {
                 foreach (var cardGroup in CurrentLesson.Cards
                         .GroupBy(c => c.GroupId)
-                        .Reverse()
+                        .OrderBy(g => g.Key)
                         .Where(g => g.Key != 4))
                     foreach (var card in cardGroup
                             .OrderBy(c => c.GroupChangeDate)

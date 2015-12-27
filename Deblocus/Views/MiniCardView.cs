@@ -39,7 +39,7 @@ namespace Deblocus.Views
         public MiniCardView(Card card)
         {
             Card = card;
-            MinHeight = HeightRequest = 100;
+            MinHeight = HeightRequest = 60;
             MinWidth  = WidthRequest  = 300;
             CreateComponents();
         }
@@ -97,23 +97,13 @@ namespace Deblocus.Views
                 TooltipText = Card.Title,
                 Font = Font.WithWeight(FontWeight.Bold).WithSize(10),
                 TextAlignment = Alignment.Center,
-                Ellipsize = EllipsizeMode.End,
-            };
-            box.PackStart(lblTitle);
-
-            var lblDescription = new Label {
-                Text = Card.Description,
-                TooltipText = Card.Description,
-                Font = Font.WithSize(10),
-                TextAlignment = Alignment.Start,
                 Wrap = WrapMode.Word,
-
-                HeightRequest = bounds.Height - 45,
-                VerticalPlacement = WidgetPlacement.Start
+                VerticalPlacement = WidgetPlacement.Center,
             };
-            box.PackStart(lblDescription);
+            box.PackStart(lblTitle, true, true);
 
             var statusBox = new HBox();
+            statusBox.MarginRight = 20;
             statusBox.HeightRequest = 16;
 
             if (Card.Images.Count > 0)

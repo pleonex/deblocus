@@ -42,7 +42,7 @@ namespace Deblocus.Entities
         }
 
         public static int DefaultTargetPoints {
-            get { return 5; }
+            get { return 1; }
         }
 
         public virtual int Id { get; protected set; }

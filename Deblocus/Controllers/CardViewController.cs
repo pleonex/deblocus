@@ -32,7 +32,7 @@ namespace Deblocus.Controllers
 
             View = new CardView(card);
             View.ButtonReturnClicked += ButtonReturnClicked;
-            View.ButtonFailClicked   += ButtonReturnClicked;
+            View.ButtonFailClicked   += ButtonFailClicked;
             View.ButtonPassClicked   += ButtonPassClicked;
             View.ButtonEditToggled   += ButtonEditToggled;
             View.ButtonAddImageClicked += ButtonAddImageClicked;
@@ -49,6 +49,13 @@ namespace Deblocus.Controllers
         private void ButtonPassClicked(object sender, EventArgs e)
         {
             Card.GivePoint();
+            DatabaseManager.Instance.SaveOrUpdate(Card);
+            Window.RestoreContent();
+        }
+
+        private void ButtonFailClicked(object sender, EventArgs e)
+        {
+            Card.TouchDate();
             DatabaseManager.Instance.SaveOrUpdate(Card);
             Window.RestoreContent();
         }

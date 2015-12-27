@@ -117,6 +117,16 @@ namespace Deblocus.UnitTests.Entities
         }
 
         [Test]
+        public void TouchDate()
+        {
+            Card card = new Card();
+            DateTime initialDate = card.GroupChangeDate;
+
+            card.TouchDate();
+            Assert.Greater(card.GroupChangeDate, initialDate);
+        }
+
+        [Test]
         public void CreateCardInDB()
         {
             Card card = new Card {

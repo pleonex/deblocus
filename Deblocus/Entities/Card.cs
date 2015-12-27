@@ -75,6 +75,12 @@ namespace Deblocus.Entities
                 GroupChangeDate = DateTime.Now;
             }
         }
+
+        public virtual void TouchDate()
+        {
+            // Used to mark as fail and send card to the bottom of the list.
+            GroupChangeDate = DateTime.Now;
+        }
     }
 }
 

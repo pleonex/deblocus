@@ -31,4 +31,4 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyCopyright("Copyright (c) 2015 Benito Palacios Sánchez")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-[assembly: AssemblyVersion("0.3.0.*")]
+[assembly: AssemblyVersion("0.4.0.*")]

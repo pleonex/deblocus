@@ -71,6 +71,7 @@ namespace Deblocus.Views
         {
             Width  = 1150;
             Height = 600;
+            Icon = ResourcesManager.GetImage("icon.png");
 
             Version version = Assembly.GetExecutingAssembly().GetName().Version;
             Title  = string.Format("Deblocus - v{0}.{1}.{2}",

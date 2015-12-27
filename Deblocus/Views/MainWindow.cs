@@ -96,19 +96,22 @@ namespace Deblocus.Views
             coursesView.HeadersVisible = false;
             coursesView.WidthRequest = 250;
 
-            btnAddSubject = new Button("Add subject");
-            btnAddLesson  = new Button("Add lesson");
+            btnAddSubject = new Button(ResourcesManager.GetImage("book_add.png"), "Subject");
+            btnAddLesson  = new Button(ResourcesManager.GetImage("report_add.png"), "Lesson");
             btnAddLesson.Sensitive = false;
-            btnAddCard = new Button("Add card");
+            btnAddCard = new Button(ResourcesManager.GetImage("note_add.png"), "Card");
             btnAddCard.Sensitive = false;
 
             var topMenu = new HBox();
+            topMenu.BackgroundColor = LightBlue;
+            topMenu.MarginTop  = 5;
+            topMenu.MarginLeft = 15;
             topMenu.PackStart(btnAddSubject);
             topMenu.PackStart(btnAddLesson);
             topMenu.PackStart(btnAddCard);
 
             var vbox = new VBox();
-            vbox.BackgroundColor = Colors.White;
+            vbox.BackgroundColor = LightBlue;
             vbox.PackStart(topMenu);
             vbox.PackStart(coursesView, true, true);
             return vbox;

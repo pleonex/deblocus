@@ -96,5 +96,11 @@
     <EmbeddedResource Include="Resources\image_add.png" />
     <EmbeddedResource Include="Resources\images.png" />
     <EmbeddedResource Include="Resources\icon.png" />
+    <EmbeddedResource Include="Resources\book_add.png" />
+    <EmbeddedResource Include="Resources\book.png" />
+    <EmbeddedResource Include="Resources\report.png" />
+    <EmbeddedResource Include="Resources\report_add.png" />
+    <EmbeddedResource Include="Resources\note.png" />
+    <EmbeddedResource Include="Resources\note_add.png" />
   </ItemGroup>
 </Project>

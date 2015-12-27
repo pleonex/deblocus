@@ -29,6 +29,11 @@ namespace Deblocus.Controllers
 
     public class CoursesController
     {
+        private static readonly Xwt.Drawing.Image SubjectIcon =
+            ResourcesManager.GetImage("book.png");
+        private static readonly Xwt.Drawing.Image LessonIcon  =
+            ResourcesManager.GetImage("report.png");
+
         private readonly TreeView treeView;
         private readonly TreeStore store;
         private readonly DataField<Xwt.Drawing.Image> imageCol;
@@ -48,7 +53,7 @@ namespace Deblocus.Controllers
             lessonCol  = new DataField<Lesson>();
             store = new TreeStore(imageCol, nameCol, subjectCol, lessonCol);
             treeView.DataSource = store;
-            treeView.Columns.Add("", nameCol);
+            treeView.Columns.Add("", imageCol, nameCol);
 
             UpdateView();
             treeView.SelectionChanged += OnTreeSelectionChanged;
@@ -69,6 +74,7 @@ namespace Deblocus.Controllers
         private void AddSubject(Subject subject)
         {
             var navigator = store.AddNode()
+                .SetValue(imageCol, SubjectIcon)
                 .SetValue(nameCol, subject.Title)
                 .SetValue(subjectCol, subject);
 
@@ -79,6 +85,7 @@ namespace Deblocus.Controllers
         private void AddLesson(TreeNavigator navigator, Lesson lesson)
         {
             navigator.AddChild()
+                .SetValue(imageCol, LessonIcon)
                 .SetValue(nameCol, lesson.Title)
                 .SetValue(subjectCol, lesson.Subject)
                 .SetValue(lessonCol, lesson)

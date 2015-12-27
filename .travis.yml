@@ -8,6 +8,6 @@ install:
   - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
 
 script:
-  - cd xwt && xbuild Xwt/Xwt.csproj && xbuild Xwt.Gtk && cd ..
+  - cd xwt && xbuild Xwt/Xwt.csproj && xbuild Xwt.Gtk/Xwt.Gtk.csproj && cd ..
   - xbuild Deblocus.sln
   - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe Deblocus.UnitTests/bin/Debug/Deblocus.UnitTests.dll

@@ -39,14 +39,12 @@ pushd .
 cd $RELEASE_FOLDER
 
 # Download and copy the SQLite3 dependency for Windows
-function download_sqlite3() {
-    cd *-x${1}Win && wget -O tmp.zip https://www.sqlite.org/2015/sqlite-dll-win${2}-x${1}-3090200.zip && unzip tmp.zip sqlite3.dll && rm tmp.zip && cd ..
-}
+wget -O tmp.zip https://www.sqlite.org/2015/sqlite-dll-win32-x86-3090200.zip && unzip tmp.zip sqlite3.dll && rm tmp.zip
 
 # Zip packages
 cp -r x86 Deblocus-$FULL_VERSION-x86Unix && zip -r Deblocus-$FULL_VERSION-x86Unix.zip *x86Unix
 cp -r x64 Deblocus-$FULL_VERSION-x64Unix && zip -r Deblocus-$FULL_VERSION-x64Unix.zip *x64Unix
-cp -r x86 Deblocus-$FULL_VERSION-x86Win  && download_sqlite3 86 32 && zip -r Deblocus-$FULL_VERSION-x86Win.zip *x86Win
-cp -r x64 Deblocus-$FULL_VERSION-x64Win  && download_sqlite3 64 64 && zip -r Deblocus-$FULL_VERSION-x64Win.zip *x64Win
+cp -r x86 Deblocus-$FULL_VERSION-x86Win  && cp sqlite3.dll *-x86Win && zip -r Deblocus-$FULL_VERSION-x86Win.zip *x86Win
+cp -r x64 Deblocus-$FULL_VERSION-x64Win  && cp sqlite3.dll *-x64Win && zip -r Deblocus-$FULL_VERSION-x64Win.zip *x64Win
 
 popd

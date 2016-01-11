@@ -86,6 +86,7 @@
     <Compile Include="Views\QuestionDialog.cs" />
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Resources\ResourcesManager.cs" />
+    <Compile Include="Views\MiniCardContextMenu.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FluentNHibernate">

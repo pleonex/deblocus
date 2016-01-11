@@ -36,6 +36,7 @@ namespace Deblocus.Views
         private Button btnAddSubject;
         private Button btnAddLesson;
         private Table tableCards;
+        private MiniCardContextMenu cardMenu;
 
         private readonly CoursesController lessonsController;
         private readonly CardsController cardsController;
@@ -52,6 +53,7 @@ namespace Deblocus.Views
             cardsController = new CardsController(
                 tableCards,
                 btnAddCard,
+                cardMenu,
                 lessonsController);
         }
 
@@ -124,6 +126,8 @@ namespace Deblocus.Views
             tableCards.BackgroundColor = LightBlue;
             tableCards.DefaultColumnSpacing = 20;
             tableCards.Margin = 5;
+
+            cardMenu = new MiniCardContextMenu();
 
             return tableCards;
         }

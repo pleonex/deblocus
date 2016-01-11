@@ -33,7 +33,7 @@ namespace Deblocus.Controllers
         private int column;
 
         public CardsController(Table panel, Button btnAddCard,
-            CoursesController lessonsController)
+            MiniCardContextMenu cardMenu, CoursesController lessonsController)
         {
             Panel = panel;
             lessonsController.LessonChange += OnLessonChanged;
@@ -41,11 +41,18 @@ namespace Deblocus.Controllers
             ButtonAddCard = btnAddCard;
             btnAddCard.Sensitive = false;
             btnAddCard.Clicked += CreateCard;
+
+            ContextMenu = cardMenu;
+            cardMenu.ContentUpdate += (sender) => {
+                DatabaseManager.Instance.SaveOrUpdate(CurrentLesson);
+                UpdateView();
+            };
         }
 
         public Table Panel { get; private set; }
         public Button ButtonAddCard { get; private set; }
         public Lesson CurrentLesson { get; private set; }
+        public MiniCardContextMenu ContextMenu { get; private set; }
 
         public void UpdateView()
         {
@@ -70,6 +77,8 @@ namespace Deblocus.Controllers
             var miniCard = new MiniCardView(card);
             miniCard.Clicked += OnCardClicked;
             Panel.Add(miniCard, column, row);
+
+            ContextMenu.Attach(miniCard);
 
             column++;
             if (column >= MaxColumns) {

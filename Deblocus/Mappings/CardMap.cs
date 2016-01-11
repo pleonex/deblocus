@@ -39,6 +39,7 @@ namespace Deblocus.Mappings
             Map(x => x.TargetPoints);
             Map(x => x.GroupId);
             Map(x => x.GroupChangeDate);
+            Map(x => x.Visible);
             References(x => x.Lesson);
         }
     }

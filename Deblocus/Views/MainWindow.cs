@@ -36,6 +36,7 @@ namespace Deblocus.Views
         private Button btnAddSubject;
         private Button btnAddLesson;
         private Table tableCards;
+        private CheckBox showHiddenCards;
         private MiniCardContextMenu cardMenu;
 
         private readonly CoursesController lessonsController;
@@ -53,6 +54,7 @@ namespace Deblocus.Views
             cardsController = new CardsController(
                 tableCards,
                 btnAddCard,
+                showHiddenCards,
                 cardMenu,
                 lessonsController);
         }
@@ -121,15 +123,23 @@ namespace Deblocus.Views
 
         private Widget MakePanel()
         {
+            var panel = new VBox();
+
             tableCards = new Table();
             tableCards.WidthRequest = 900;
             tableCards.BackgroundColor = LightBlue;
             tableCards.DefaultColumnSpacing = 20;
             tableCards.Margin = 5;
+            panel.PackStart(tableCards, true, true);
+
+            var bottomBar = new HBox();
+            showHiddenCards = new CheckBox("Show Hidden Cards");
+            bottomBar.PackStart(showHiddenCards);
+            panel.PackStart(bottomBar);
 
             cardMenu = new MiniCardContextMenu();
 
-            return tableCards;
+            return panel;
         }
 
         private void HandleCloseRequested(object sender, CloseRequestedEventArgs e)

@@ -32,7 +32,7 @@ namespace Deblocus.Controllers
         private int row;
         private int column;
 
-        public CardsController(Table panel, Button btnAddCard,
+        public CardsController(Table panel, Button btnAddCard, CheckBox showHiddenCards,
             MiniCardContextMenu cardMenu, CoursesController lessonsController)
         {
             Panel = panel;
@@ -47,12 +47,16 @@ namespace Deblocus.Controllers
                 DatabaseManager.Instance.SaveOrUpdate(CurrentLesson);
                 UpdateView();
             };
+
+            ShowHiddenCards = showHiddenCards;
+            showHiddenCards.Clicked += (sender, e) => UpdateView();
         }
 
         public Table Panel { get; private set; }
         public Button ButtonAddCard { get; private set; }
         public Lesson CurrentLesson { get; private set; }
         public MiniCardContextMenu ContextMenu { get; private set; }
+        public CheckBox ShowHiddenCards { get; private set; }
 
         public void UpdateView()
         {
@@ -67,7 +71,7 @@ namespace Deblocus.Controllers
                         .Where(g => g.Key != 4))
                     foreach (var card in cardGroup
                             .OrderBy(c => c.GroupChangeDate)
-                            .Where(c => c.Visible))
+                            .Where(c => c.Visible || ShowHiddenCards.Active))
                         AddCard(card);
             }
         }

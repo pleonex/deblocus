@@ -67,7 +67,11 @@ namespace Deblocus.Views
             double height = Bounds.Height;
 
             // Draw border arcs
-            ctx.SetColor(BaseColor[Card.GroupId]);
+            int colorIndex = Card.GroupId;
+            if (colorIndex >= BaseColor.Length)
+                colorIndex = BaseColor.Length - 1;
+
+            ctx.SetColor(BaseColor[colorIndex]);
             ctx.Arc(radius, radius, radius, 180, 270);                  // Top left
             ctx.Arc(width - radius, radius, radius, 270, 0);            // Top right
             ctx.Arc(width - radius, height - radius, radius, 0, 90);    // Bottom right

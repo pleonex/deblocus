@@ -106,6 +106,8 @@ namespace Deblocus.Views
             statusBox.MarginRight = 20;
             statusBox.HeightRequest = 16;
 
+            if (!Card.Visible)
+                statusBox.PackEnd(new ImageView { Image = ResourcesManager.GetImage("eye_cross.png") });
             if (Card.Images.Count > 0)
                 statusBox.PackEnd(new ImageView { Image = ResourcesManager.GetImage("images.png") });
             box.PackStart(statusBox);

@@ -126,5 +126,6 @@
     <EmbeddedResource Include="Resources\note.png" />
     <EmbeddedResource Include="Resources\note_add.png" />
     <EmbeddedResource Include="Resources\paste_image.png" />
+    <EmbeddedResource Include="Resources\eye_cross.png" />
   </ItemGroup>
 </Project>

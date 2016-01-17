@@ -117,6 +117,21 @@ namespace Deblocus.UnitTests.Entities
         }
 
         [Test]
+        public void IsCompleted()
+        {
+            Card card = new Card();
+            while (card.GroupId < Card.PointsForComplete) {
+                Assert.IsFalse(card.IsComplete());
+                card.GivePoint();
+            }
+
+            Assert.IsTrue(card.IsComplete());
+
+            card.GivePoint();
+            Assert.IsTrue(card.IsComplete());
+        }
+
+        [Test]
         public void TouchDate()
         {
             Card card = new Card();

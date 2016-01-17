@@ -45,6 +45,10 @@ namespace Deblocus.Entities
             get { return 1; }
         }
 
+        public static int PointsForComplete {
+            get { return 4; }
+        }
+
         public virtual int Id { get; protected set; }
         public virtual string Title {
             get { return title; }
@@ -59,6 +63,11 @@ namespace Deblocus.Entities
         public virtual DateTime GroupChangeDate { get; protected set; }
         public virtual Lesson Lesson { get; set; }
         public virtual bool Visible { get; set; }
+
+        public virtual bool IsComplete()
+        {
+            return GroupId >= PointsForComplete;
+        }
 
         public virtual void AddImage(Image img)
         {

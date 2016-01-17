@@ -70,14 +70,12 @@ namespace Deblocus.Controllers
             column = 0;
 
             if (CurrentLesson != null) {
-                foreach (var cardGroup in CurrentLesson.Cards
-                        .GroupBy(c => c.GroupId)
-                        .OrderBy(g => g.Key)
-                        .Where(g => g.Key < 4 || ShowCompletedCards.Active))
-                    foreach (var card in cardGroup
-                            .OrderBy(c => c.GroupChangeDate)
-                            .Where(c => c.Visible || ShowHiddenCards.Active))
-                        AddCard(card);
+                var cardsToShow = CurrentLesson.Cards
+                    .OrderBy(c => c.GroupId).ThenBy(c => c.GroupChangeDate)
+                    .Where(c => !c.IsComplete() || ShowCompletedCards.Active)
+                    .Where(c => c.Visible || ShowHiddenCards.Active);
+                foreach (var card in cardsToShow)
+                    AddCard(card);
             }
         }
 

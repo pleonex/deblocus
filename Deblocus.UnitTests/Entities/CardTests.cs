@@ -132,6 +132,24 @@ namespace Deblocus.UnitTests.Entities
         }
 
         [Test]
+        public void ResetPoints()
+        {
+            Card card = new Card();
+            Assert.DoesNotThrow(card.ResetPoints);
+            Assert.AreEqual(0, card.Points);
+            Assert.AreEqual(0, card.GroupId);
+
+            while (card.GroupId == 0)
+                card.GivePoint();
+            var cardDate = card.GroupChangeDate;
+
+            card.ResetPoints();
+            Assert.AreEqual(0, card.Points);
+            Assert.AreEqual(0, card.GroupId);
+            Assert.AreNotEqual(cardDate, card.GroupChangeDate);
+        }
+
+        [Test]
         public void TouchDate()
         {
             Card card = new Card();

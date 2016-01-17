@@ -21,6 +21,7 @@
 using System;
 using Xwt;
 using System.Linq.Expressions;
+using Xwt.Backends;
 
 namespace Deblocus.Views
 {
@@ -37,6 +38,11 @@ namespace Deblocus.Views
         public MiniCardContextMenu()
         {
             menu = new Menu();
+
+            var resetPoints = new MenuItem("Reset points");
+            resetPoints.Clicked += (sender, e) => 
+                ItemEvent(activeCard.Card.ResetPoints);
+            menu.Items.Add(resetPoints);
 
             hideItem = new MenuItem("Hide Card");
             hideItem.Clicked += (sender, e) => 

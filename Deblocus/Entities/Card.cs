@@ -81,7 +81,7 @@ namespace Deblocus.Entities
             if (Points >= TargetPoints) {
                 Points = 0;
                 GroupId++;
-                GroupChangeDate = DateTime.Now;
+                TouchDate();
             }
         }
 
@@ -89,6 +89,13 @@ namespace Deblocus.Entities
         {
             // Used to mark as fail and send card to the bottom of the list.
             GroupChangeDate = DateTime.Now;
+        }
+
+        public virtual void ResetPoints()
+        {
+            Points = 0;
+            GroupId = 0;
+            TouchDate();
         }
     }
 }

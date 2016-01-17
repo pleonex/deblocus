@@ -83,8 +83,6 @@ namespace Deblocus.Views
             Title  = string.Format("Deblocus - v{0}.{1}.{2}",
                 version.Major, version.Minor, version.Build);
 
-            CloseRequested += HandleCloseRequested;
-
             var menuPanelDivision = new HPaned();
             menuPanelDivision.BackgroundColor = LightBlue;
             menuPanelDivision.Panel1.Content = MakeSidebar();
@@ -93,6 +91,19 @@ namespace Deblocus.Views
             // Set the content
             Padding = new WidgetSpacing();
             Content = mainContent = menuPanelDivision;
+
+            CloseRequested += WindowCloseRequested;
+        }
+
+        private void WindowCloseRequested(object sender, CloseRequestedEventArgs args)
+        {
+            args.AllowClose = MessageDialog.Confirm(
+                "Close requested",
+                "Are you sure you want to quit the application?",
+                Command.Ok);
+            
+            if (args.AllowClose)
+                Application.Exit();
         }
 
         private Widget MakeSidebar()
@@ -144,11 +155,6 @@ namespace Deblocus.Views
             cardMenu = new MiniCardContextMenu();
 
             return panel;
-        }
-
-        private void HandleCloseRequested(object sender, CloseRequestedEventArgs e)
-        {
-            Application.Exit();
         }
     }
 }

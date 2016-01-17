@@ -37,6 +37,7 @@ namespace Deblocus.Views
         private Button btnAddLesson;
         private Table tableCards;
         private CheckBox showHiddenCards;
+        private CheckBox showCompletedCards;
         private MiniCardContextMenu cardMenu;
 
         private readonly CoursesController lessonsController;
@@ -55,6 +56,7 @@ namespace Deblocus.Views
                 tableCards,
                 btnAddCard,
                 showHiddenCards,
+                showCompletedCards,
                 cardMenu,
                 lessonsController);
         }
@@ -135,6 +137,8 @@ namespace Deblocus.Views
             var bottomBar = new HBox();
             showHiddenCards = new CheckBox("Show Hidden Cards");
             bottomBar.PackStart(showHiddenCards);
+            showCompletedCards = new CheckBox("Show Completed Cards");
+            bottomBar.PackStart(showCompletedCards);
             panel.PackStart(bottomBar);
 
             cardMenu = new MiniCardContextMenu();

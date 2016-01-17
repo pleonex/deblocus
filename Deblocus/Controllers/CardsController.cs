@@ -33,7 +33,8 @@ namespace Deblocus.Controllers
         private int column;
 
         public CardsController(Table panel, Button btnAddCard, CheckBox showHiddenCards,
-            MiniCardContextMenu cardMenu, CoursesController lessonsController)
+            CheckBox showCompletedCards, MiniCardContextMenu cardMenu,
+            CoursesController lessonsController)
         {
             Panel = panel;
             lessonsController.LessonChange += OnLessonChanged;
@@ -50,6 +51,9 @@ namespace Deblocus.Controllers
 
             ShowHiddenCards = showHiddenCards;
             showHiddenCards.Clicked += (sender, e) => UpdateView();
+
+            ShowCompletedCards = showCompletedCards;
+            showCompletedCards.Clicked += (sender, e) => UpdateView();
         }
 
         public Table Panel { get; private set; }
@@ -57,6 +61,7 @@ namespace Deblocus.Controllers
         public Lesson CurrentLesson { get; private set; }
         public MiniCardContextMenu ContextMenu { get; private set; }
         public CheckBox ShowHiddenCards { get; private set; }
+        public CheckBox ShowCompletedCards { get; private set; }
 
         public void UpdateView()
         {
@@ -68,7 +73,7 @@ namespace Deblocus.Controllers
                 foreach (var cardGroup in CurrentLesson.Cards
                         .GroupBy(c => c.GroupId)
                         .OrderBy(g => g.Key)
-                        .Where(g => g.Key != 4))
+                        .Where(g => g.Key < 4 || ShowCompletedCards.Active))
                     foreach (var card in cardGroup
                             .OrderBy(c => c.GroupChangeDate)
                             .Where(c => c.Visible || ShowHiddenCards.Active))

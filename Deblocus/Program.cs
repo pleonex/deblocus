@@ -30,6 +30,7 @@ namespace Deblocus
         public static void Main()
         {
             Application.Initialize(ToolkitType.Gtk);
+            Application.UnhandledException += ApplicationException;
 
             var mainWindow = new MainWindow();
             mainWindow.Show();
@@ -37,6 +38,12 @@ namespace Deblocus
 
             mainWindow.Dispose();
             Application.Dispose();
+        }
+
+        private static void ApplicationException (object sender, ExceptionEventArgs e)
+        {
+            MessageDialog.ShowError("Unknown error. Please contact with the developer.\n" +
+                e.ErrorException);
         }
     }
 }

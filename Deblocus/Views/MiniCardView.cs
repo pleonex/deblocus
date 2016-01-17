@@ -110,6 +110,9 @@ namespace Deblocus.Views
             statusBox.MarginRight = 20;
             statusBox.HeightRequest = 16;
 
+            string pointsFormat = string.Format("({0}/{1})", Card.GroupId, Card.PointsForComplete);
+            statusBox.PackStart(new Label(pointsFormat) { Font = Font.WithWeight(FontWeight.Bold) });
+
             if (!Card.Visible)
                 statusBox.PackEnd(new ImageView { Image = ResourcesManager.GetImage("eye_cross.png") });
             if (Card.IsComplete())

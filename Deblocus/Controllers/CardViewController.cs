@@ -64,6 +64,17 @@ namespace Deblocus.Controllers
 
         private void ButtonReturnClicked(object sender, EventArgs e)
         {
+            // Warn user becasuse it's trying to return without saving changes.
+            if (View.IsEditMode) {
+                var result = MessageDialog.AskQuestion(
+                    "Changes not saved!",
+                    "Are you sure you want to return while you are in edit mode?\n" +
+                    "The changes won't be saved!",
+                    Command.Yes, Command.No);
+                if (result != Command.Yes)
+                    return;
+            }
+
             Window.RestoreContent();
         }
 

@@ -49,6 +49,8 @@ namespace Deblocus.Views
 
         public Deblocus.Entities.Card Card { get; private set; }
 
+        public bool IsEditMode { get { return btnEdit.Active; } }
+
         public event EventHandler ButtonPassClicked {
             add { btnPass.Clicked += value; }
             remove { btnPass.Clicked -= value; }

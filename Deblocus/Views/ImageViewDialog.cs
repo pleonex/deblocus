@@ -26,7 +26,7 @@ namespace Deblocus.Views
 {
     public class ImageViewDialog : Dialog
     {
-        private Table table;
+        private readonly Table table;
 
         public ImageViewDialog(Image image)
         {
@@ -41,7 +41,10 @@ namespace Deblocus.Views
             Button btnLeft = new Button("<");
             btnLeft.Clicked += (sender, e) => this.Dispose();
             table.Add(btnLeft, 0, 0, vpos: WidgetPlacement.Center);
-            table.Add(new ImageCanvas(image), 1, 0, 1, 1, true, true,
+            var imgCanvas = new ImageCanvas(image);
+            imgCanvas.WidthRequest = image.Width;
+            imgCanvas.HeightRequest = image.Height;
+            table.Add(imgCanvas, 1, 0, 1, 1, true, true,
                 WidgetPlacement.Center, WidgetPlacement.Center);
             table.Add(new Button(">"), 2, 0, vpos: WidgetPlacement.Center);
 

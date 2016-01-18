@@ -173,12 +173,14 @@ namespace Deblocus.Views
 
             lblDescription = new MarkdownView {
                 Markdown = Card.Description ?? "",
+                Font = Font.WithSize(14),
                 Visible = false
             };
             virtualBox.PackStart(lblDescription, true);
 
             txtDescription = new TextArea {
                 Text = Card.Description ?? "",
+                Font = Font.WithSize(14),
                 Visible = false
             };
             virtualBox.PackStart(txtDescription, true);
